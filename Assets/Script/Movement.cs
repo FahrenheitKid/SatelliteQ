@@ -30,16 +30,28 @@ public class Movement : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        translation = Vector3.zero;
-        rotation = Vector3.zero;
+        
         rotation.y = Input.GetAxis("Mouse X") * rotationSpeed;
+        rotation.x = Input.GetAxis("Mouse Y") * rotationSpeed;
 
         if (controller.isGrounded)
         {
             //Jump
-            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) && Input.GetButton("Jump"))
+            if (Input.GetKey(KeyCode.W) && Input.GetButton("Jump"))
             {
                 anim.SetBool("isJumping", true);
+                translation.y = jumpSpeed;
+            }
+            else if(!Input.GetKey(KeyCode.W) && Input.GetButton("Jump"))
+            {
+                anim.SetBool("isJumping", true);
+                translation.y = jumpSpeed;
+            }
+
+            //Running Jump
+            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) && Input.GetButton("Jump"))
+            {
+                anim.SetBool("isRunningJump", true);
                 translation.y = jumpSpeed;
             }
         }
@@ -50,25 +62,54 @@ public class Movement : MonoBehaviour {
 
         translation.y -= gravity * Time.deltaTime;
         controller.Move(translation * Time.deltaTime);
-        controller.transform.Rotate(rotation * Time.deltaTime);
+        controller.transform.Rotate(0, rotation.y * Time.deltaTime, 0);
 
-        //Crouch
-        if (Input.GetKeyDown("q"))
+        //FirstPerson.transform.Rotate(-rotation.x * Time.deltaTime, 0, 0);
+
+        //Satellite
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             speed = 0;
             FirstPerson.enabled = false;
             TopView.enabled = true;
-            anim.SetBool("isCrouching", true);
-            anim.SetBool("isCrouch", true);
         }
 
-        if (Input.GetKeyUp("q"))
+        if (Input.GetKeyUp(KeyCode.Q))
         {
             speed = speedWalk;
             FirstPerson.enabled = true;
             TopView.enabled = false;
+        }
+
+        //Crouch
+        if(Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            anim.SetBool("isCrouching", true);
+            anim.SetBool("isCrouch", true);
+        }
+        else if(Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            anim.SetBool("isCrouchWalking", false);
             anim.SetBool("isCrouching", false);
             anim.SetBool("isCrouch", false);
+        }
+
+        //Crouch Walking
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftControl))
+        {
+            anim.SetBool("isCrouchWalking", true);
+        }
+        else if (Input.GetKey(KeyCode.W) && Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            anim.SetBool("isCrouchWalking", false);
+            anim.SetBool("isCrouching", false);
+            anim.SetBool("isCrouch", false);
+        }
+        else if(Input.GetKeyUp(KeyCode.W) && Input.GetKey(KeyCode.LeftControl))
+        {
+            anim.SetBool("isCrouchWalking", false);
+            anim.SetBool("isCrouching", false);
+            anim.SetBool("isCrouch", true);
         }
 
         //Walk
