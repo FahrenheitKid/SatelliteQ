@@ -9,14 +9,21 @@ public class Movement : MonoBehaviour {
     public Camera TopView;
 
     public float speedWalk = 15.0f;
+    public float speedWalkBackwards = 5.0f;
     public float speedRun = 28.0f;
-    public float rotationSpeed = 80.0f;
     public float jumpSpeed = 8.0F;
     public float gravity = 20.0F;
-
     private float speed = 30.0f;
+
+    private Vector3 cameraRotation = Vector3.zero;
+    public float mouseSpeed = 100.0f;
+    public float mouseMinimumX = -60.0f;
+    public float mouseMaximumX = 60.0f;
+
     private Vector3 translation = Vector3.zero;
     private Vector3 rotation = Vector3.zero;
+
+    float movedY = 0;
 
     // Use this for initialization
     void Start ()
@@ -30,9 +37,9 @@ public class Movement : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        
-        rotation.y = Input.GetAxis("Mouse X") * rotationSpeed;
-        rotation.x = Input.GetAxis("Mouse Y") * rotationSpeed;
+
+        rotation.y = Input.GetAxis("Mouse X") * mouseSpeed * Time.deltaTime;
+        rotation.x = Input.GetAxis("Mouse Y") * mouseSpeed * Time.deltaTime;
 
         if (controller.isGrounded)
         {
@@ -62,9 +69,14 @@ public class Movement : MonoBehaviour {
 
         translation.y -= gravity * Time.deltaTime;
         controller.Move(translation * Time.deltaTime);
-        controller.transform.Rotate(0, rotation.y * Time.deltaTime, 0);
+        controller.transform.Rotate(0, rotation.y, 0);
 
-        //FirstPerson.transform.Rotate(-rotation.x * Time.deltaTime, 0, 0);
+        movedY -= rotation.x;
+        movedY = Mathf.Clamp(movedY, -60, 25);
+        cameraRotation.x = movedY;
+        FirstPerson.transform.localEulerAngles = cameraRotation;
+
+        Debug.Log(movedY);
 
         //Satellite
         if (Input.GetKeyDown(KeyCode.Q))
@@ -122,6 +134,18 @@ public class Movement : MonoBehaviour {
         {
             anim.SetBool("isWalking", false);
         }
+
+        //Walk Backwards
+        if (Input.GetKey(KeyCode.S))
+        {
+            anim.SetBool("isWalkingBackwards", true);
+            //speed = speedWalkBackwards;
+        }
+        else
+        {
+            anim.SetBool("isWalkingBackwards", false);
+        }
+
         //Run
         if (translation.z != 0 && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
         {
@@ -133,8 +157,8 @@ public class Movement : MonoBehaviour {
             anim.SetBool("isRunning", false);
         }
 
-        //Turn Left
-        if (translation.x < 0 && translation.z == 0)
+        //Run Left Strafe
+        if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.LeftShift))
         {
             anim.SetBool("isLeftStrafe", true);
         }
@@ -143,8 +167,8 @@ public class Movement : MonoBehaviour {
             anim.SetBool("isLeftStrafe", false);
         }
 
-        //Turn Right
-        if (translation.x > 0 && translation.z == 0)
+        //Run Right Strafe
+        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftShift))
         {
             anim.SetBool("isRightStrafe", true);
         }
