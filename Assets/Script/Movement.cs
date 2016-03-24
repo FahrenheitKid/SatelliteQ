@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour {
     private Vector3 translation = Vector3.zero;
     private Vector3 rotation = Vector3.zero;
 
-    float movedY = 0;
+    float cameraRotatedY = 0;
 
     // Use this for initialization
     void Start ()
@@ -37,31 +37,13 @@ public class Movement : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        if (controller.isGrounded)
+        {
+            AnimationControl();
+        }
 
         rotation.y = Input.GetAxis("Mouse X") * mouseSpeed * Time.deltaTime;
         rotation.x = Input.GetAxis("Mouse Y") * mouseSpeed * Time.deltaTime;
-
-        if (controller.isGrounded)
-        {
-            //Jump
-            if (Input.GetKey(KeyCode.W) && Input.GetButton("Jump"))
-            {
-                anim.SetBool("isJumping", true);
-                translation.y = jumpSpeed;
-            }
-            else if(!Input.GetKey(KeyCode.W) && Input.GetButton("Jump"))
-            {
-                anim.SetBool("isJumping", true);
-                translation.y = jumpSpeed;
-            }
-
-            //Running Jump
-            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) && Input.GetButton("Jump"))
-            {
-                anim.SetBool("isRunningJump", true);
-                translation.y = jumpSpeed;
-            }
-        }
 
         translation = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         translation = transform.TransformDirection(translation);
@@ -71,12 +53,10 @@ public class Movement : MonoBehaviour {
         controller.Move(translation * Time.deltaTime);
         controller.transform.Rotate(0, rotation.y, 0);
 
-        movedY -= rotation.x;
-        movedY = Mathf.Clamp(movedY, -60, 25);
-        cameraRotation.x = movedY;
+        cameraRotatedY -= rotation.x;
+        cameraRotatedY = Mathf.Clamp(cameraRotatedY, -60, 25);
+        cameraRotation.x = cameraRotatedY;
         FirstPerson.transform.localEulerAngles = cameraRotation;
-
-        Debug.Log(movedY);
 
         //Satellite
         if (Input.GetKeyDown(KeyCode.Q))
@@ -92,14 +72,37 @@ public class Movement : MonoBehaviour {
             FirstPerson.enabled = true;
             TopView.enabled = false;
         }
+    }
+
+    //Set Animation Flags
+    void AnimationControl()
+    {
+        //Jump
+        if (Input.GetKey(KeyCode.W) && Input.GetButton("Jump"))
+        {
+            anim.SetBool("isJumping", true);
+            translation.y = jumpSpeed;
+        }
+        else if (!Input.GetKey(KeyCode.W) && Input.GetButton("Jump"))
+        {
+            anim.SetBool("isJumping", true);
+            translation.y = jumpSpeed;
+        }
+
+        //Running Jump
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) && Input.GetButton("Jump"))
+        {
+            anim.SetBool("isRunningJump", true);
+            translation.y = jumpSpeed;
+        }
 
         //Crouch
-        if(Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             anim.SetBool("isCrouching", true);
             anim.SetBool("isCrouch", true);
         }
-        else if(Input.GetKeyUp(KeyCode.LeftControl))
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             anim.SetBool("isCrouchWalking", false);
             anim.SetBool("isCrouching", false);
@@ -117,7 +120,7 @@ public class Movement : MonoBehaviour {
             anim.SetBool("isCrouching", false);
             anim.SetBool("isCrouch", false);
         }
-        else if(Input.GetKeyUp(KeyCode.W) && Input.GetKey(KeyCode.LeftControl))
+        else if (Input.GetKeyUp(KeyCode.W) && Input.GetKey(KeyCode.LeftControl))
         {
             anim.SetBool("isCrouchWalking", false);
             anim.SetBool("isCrouching", false);
