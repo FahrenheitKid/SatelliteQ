@@ -12,18 +12,17 @@ public class Movement : MonoBehaviour {
     public float speedWalkBackwards = 5.0f;
     public float speedRun = 28.0f;
     public float jumpSpeed = 8.0F;
-    public float gravity = 20.0F;
+    public float gravity = 9.8F;
     private float speed = 30.0f;
+    private bool jumping = false;
 
     private Vector3 cameraRotation = Vector3.zero;
     public float mouseSpeed = 100.0f;
-    public float mouseMinimumX = -60.0f;
-    public float mouseMaximumX = 60.0f;
 
     private Vector3 translation = Vector3.zero;
     private Vector3 rotation = Vector3.zero;
 
-    float cameraRotatedY = 0;
+    float cameraRotatedX = 0;
 
     // Use this for initialization
     void Start ()
@@ -37,63 +36,43 @@ public class Movement : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if (controller.isGrounded)
-        {
-            AnimationControl();
-        }
-
         rotation.y = Input.GetAxis("Mouse X") * mouseSpeed * Time.deltaTime;
         rotation.x = Input.GetAxis("Mouse Y") * mouseSpeed * Time.deltaTime;
 
-        translation = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        translation.x = Input.GetAxis("Horizontal");
+        translation.y = 0;
+        translation.z = Input.GetAxis("Vertical");
         translation = transform.TransformDirection(translation);
         translation *= speed;
 
-        translation.y -= gravity * Time.deltaTime;
+        AnimationControl();
+        translation.y -= gravity;
+
         controller.Move(translation * Time.deltaTime);
         controller.transform.Rotate(0, rotation.y, 0);
 
-        cameraRotatedY -= rotation.x;
-        cameraRotatedY = Mathf.Clamp(cameraRotatedY, -60, 25);
-        cameraRotation.x = cameraRotatedY;
+        cameraRotatedX -= rotation.x;
+        cameraRotatedX = Mathf.Clamp(cameraRotatedX, -60, 25);
+        cameraRotation.x = cameraRotatedX;
         FirstPerson.transform.localEulerAngles = cameraRotation;
-
-        //Satellite
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            speed = 0;
-            FirstPerson.enabled = false;
-            TopView.enabled = true;
-        }
-
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            speed = speedWalk;
-            FirstPerson.enabled = true;
-            TopView.enabled = false;
-        }
     }
 
     //Set Animation Flags
     void AnimationControl()
     {
-        //Jump
-        if (Input.GetKey(KeyCode.W) && Input.GetButton("Jump"))
-        {
-            anim.SetBool("isJumping", true);
-            translation.y = jumpSpeed;
-        }
-        else if (!Input.GetKey(KeyCode.W) && Input.GetButton("Jump"))
-        {
-            anim.SetBool("isJumping", true);
-            translation.y = jumpSpeed;
-        }
-
         //Running Jump
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) && Input.GetButton("Jump"))
+        if (controller.isGrounded)
         {
-            anim.SetBool("isRunningJump", true);
-            translation.y = jumpSpeed;
+            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.Space))
+            {
+                anim.SetTrigger("isRunningJump");
+                translation.y = 500;
+                Debug.Log("Jumped");
+            }
+        }
+        else if(!controller.isGrounded)
+        {
+            Debug.Log("Not on Ground");
         }
 
         //Crouch
@@ -178,6 +157,30 @@ public class Movement : MonoBehaviour {
         else
         {
             anim.SetBool("isRightStrafe", false);
+        }
+    }
+
+    void CharacterJump()
+    {
+        //translation
+    }
+
+    //Change to Satellite
+    void SwitchToSatellite()
+    {
+        //Satellite
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            speed = 0;
+            FirstPerson.enabled = false;
+            TopView.enabled = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            speed = speedWalk;
+            FirstPerson.enabled = true;
+            TopView.enabled = false;
         }
     }
 }
