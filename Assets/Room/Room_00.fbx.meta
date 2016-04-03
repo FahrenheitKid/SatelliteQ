@@ -1,85 +1,647 @@
 fileFormatVersion: 2
-guid: f2f124c5aa348c744baa8e71c5473f66
-timeCreated: 1458860712
+guid: fad9e4516629eb943bf1281dd027ea2f
+timeCreated: 1459714596
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: pCube1
-    100002: pCube2
-    100004: pCube3
-    100006: polySurface10
-    100008: polySurface11
-    100010: polySurface12
-    100012: polySurface13
-    100014: polySurface14
-    100016: polySurface15
-    100018: polySurface16
-    100020: polySurface3
-    100022: polySurface4
-    100024: polySurface5
-    100026: polySurface7
-    100028: polySurface8
-    100030: polySurface9
-    100032: pPlane1
-    100034: //RootNode
-    400000: pCube1
-    400002: pCube2
-    400004: pCube3
-    400006: polySurface10
-    400008: polySurface11
-    400010: polySurface12
-    400012: polySurface13
-    400014: polySurface14
-    400016: polySurface15
-    400018: polySurface16
-    400020: polySurface3
-    400022: polySurface4
-    400024: polySurface5
-    400026: polySurface7
-    400028: polySurface8
-    400030: polySurface9
-    400032: pPlane1
-    400034: //RootNode
-    2300000: pCube2
-    2300002: pCube3
-    2300004: polySurface10
-    2300006: polySurface11
-    2300008: polySurface13
-    2300010: polySurface14
-    2300012: polySurface15
-    2300014: polySurface16
-    2300016: polySurface3
-    2300018: polySurface5
-    2300020: polySurface7
-    2300022: polySurface8
-    2300024: polySurface9
-    3300000: pCube2
-    3300002: pCube3
-    3300004: polySurface10
-    3300006: polySurface11
-    3300008: polySurface13
-    3300010: polySurface14
-    3300012: polySurface15
-    3300014: polySurface16
-    3300016: polySurface3
-    3300018: polySurface5
-    3300020: polySurface7
-    3300022: polySurface8
-    3300024: polySurface9
-    4300000: polySurface7
-    4300002: polySurface8
-    4300004: polySurface9
-    4300006: polySurface10
-    4300008: polySurface15
-    4300010: polySurface16
-    4300012: polySurface5
-    4300014: polySurface11
-    4300016: polySurface13
-    4300018: polySurface14
-    4300020: polySurface3
-    4300022: pCube2
-    4300024: pCube3
+    100000: BBox_1
+    100002: BBox_10
+    100004: BBox_11
+    100006: BBox_12
+    100008: BBox_13
+    100010: BBox_14
+    100012: BBox_15
+    100014: BBox_16
+    100016: BBox_17
+    100018: BBox_18
+    100020: BBox_19
+    100022: BBox_2
+    100024: BBox_20
+    100026: BBox_21
+    100028: BBox_22
+    100030: BBox_23
+    100032: BBox_24
+    100034: BBox_3
+    100036: BBox_4
+    100038: BBox_5
+    100040: BBox_6
+    100042: BBox_7
+    100044: BBox_8
+    100046: BBox_9
+    100048: Bed_1
+    100050: Bed_2
+    100052: Bed_2 1
+    100054: Bed_3
+    100056: Bed_3 1
+    100058: Bed_4
+    100060: Bed_4 1
+    100062: Bed_5
+    100064: Bed_5 1
+    100066: Bed_6
+    100068: Bed_6 1
+    100070: Bed_7
+    100072: Box_1
+    100074: Box_2
+    100076: Box_3
+    100078: Box_4
+    100080: Box_5
+    100082: Box_6
+    100084: Cell_Block_1
+    100086: Cell_Block_2
+    100088: Cell_Block_3
+    100090: Cell_Block_4
+    100092: Cell_Grid_1
+    100094: Cell_Grid_2
+    100096: Cell_Grid_2 1
+    100098: Cell_Grid_2 2
+    100100: Cell_Grid_2 3
+    100102: Cell_Grid_3
+    100104: Cell_Grid_3 1
+    100106: Cell_Grid_3 2
+    100108: Cell_Grid_3 3
+    100110: Cell_Grid_4
+    100112: Cell_Grid_4 1
+    100114: Cell_Grid_4 2
+    100116: Cell_Grid_4 3
+    100118: Cell_Grid_5
+    100120: Cell_Grid_5 1
+    100122: Cell_Grid_5 2
+    100124: Cell_Grid_5 3
+    100126: Cell_Grid_6
+    100128: Cell_Grid_6 1
+    100130: Cell_Grid_6 2
+    100132: Cell_Grid_6 3
+    100134: Cell_Grid_7
+    100136: Cell_Grid_8
+    100138: Cell_Grid_9
+    100140: Door_1
+    100142: Door_2
+    100144: Door_3
+    100146: Door_4
+    100148: Door_5
+    100150: Duct
+    100152: Duct_Grid_1
+    100154: Duct_Grid_2
+    100156: Duct_Grid_3
+    100158: Duct_Grid_4
+    100160: Duct_Grid_5
+    100162: Floor_1
+    100164: Floor_1_2nd_Floor
+    100166: Floor_1_Object
+    100168: Floor_2
+    100170: Floor_3
+    100172: Floor_4
+    100174: Floor_5
+    100176: Ladder_1
+    100178: Ladder_2
+    100180: Pillar_1
+    100182: Pillar_2
+    100184: Pillar_3
+    100186: Pillar_4
+    100188: Pillar_5
+    100190: Pillar_6
+    100192: //RootNode
+    100194: SBox_1
+    100196: SBox_10
+    100198: SBox_11
+    100200: SBox_12
+    100202: SBox_13
+    100204: SBox_14
+    100206: SBox_15
+    100208: SBox_16
+    100210: SBox_2
+    100212: SBox_3
+    100214: SBox_4
+    100216: SBox_5
+    100218: SBox_6
+    100220: SBox_7
+    100222: SBox_8
+    100224: SBox_9
+    100226: Stairs_1
+    100228: Stairs_1_Cont_1
+    100230: Stairs_2
+    100232: Stairs_2_Cont_1
+    100234: Stairs_2_Cont_2
+    100236: Stairs_2_Cont_3
+    100238: Stairs_3
+    100240: Stairs_3_Cont_1
+    100242: Wall_Control1
+    100244: Wall_Control_Hallway
+    100246: Wall_Exit
+    100248: Wall_Store
+    100250: Wood_1
+    100252: Wood_2
+    100254: Wood_3
+    400000: BBox_1
+    400002: BBox_10
+    400004: BBox_11
+    400006: BBox_12
+    400008: BBox_13
+    400010: BBox_14
+    400012: BBox_15
+    400014: BBox_16
+    400016: BBox_17
+    400018: BBox_18
+    400020: BBox_19
+    400022: BBox_2
+    400024: BBox_20
+    400026: BBox_21
+    400028: BBox_22
+    400030: BBox_23
+    400032: BBox_24
+    400034: BBox_3
+    400036: BBox_4
+    400038: BBox_5
+    400040: BBox_6
+    400042: BBox_7
+    400044: BBox_8
+    400046: BBox_9
+    400048: Bed_1
+    400050: Bed_2
+    400052: Bed_2 1
+    400054: Bed_3
+    400056: Bed_3 1
+    400058: Bed_4
+    400060: Bed_4 1
+    400062: Bed_5
+    400064: Bed_5 1
+    400066: Bed_6
+    400068: Bed_6 1
+    400070: Bed_7
+    400072: Box_1
+    400074: Box_2
+    400076: Box_3
+    400078: Box_4
+    400080: Box_5
+    400082: Box_6
+    400084: Cell_Block_1
+    400086: Cell_Block_2
+    400088: Cell_Block_3
+    400090: Cell_Block_4
+    400092: Cell_Grid_1
+    400094: Cell_Grid_2
+    400096: Cell_Grid_2 1
+    400098: Cell_Grid_2 2
+    400100: Cell_Grid_2 3
+    400102: Cell_Grid_3
+    400104: Cell_Grid_3 1
+    400106: Cell_Grid_3 2
+    400108: Cell_Grid_3 3
+    400110: Cell_Grid_4
+    400112: Cell_Grid_4 1
+    400114: Cell_Grid_4 2
+    400116: Cell_Grid_4 3
+    400118: Cell_Grid_5
+    400120: Cell_Grid_5 1
+    400122: Cell_Grid_5 2
+    400124: Cell_Grid_5 3
+    400126: Cell_Grid_6
+    400128: Cell_Grid_6 1
+    400130: Cell_Grid_6 2
+    400132: Cell_Grid_6 3
+    400134: Cell_Grid_7
+    400136: Cell_Grid_8
+    400138: Cell_Grid_9
+    400140: Door_1
+    400142: Door_2
+    400144: Door_3
+    400146: Door_4
+    400148: Door_5
+    400150: Duct
+    400152: Duct_Grid_1
+    400154: Duct_Grid_2
+    400156: Duct_Grid_3
+    400158: Duct_Grid_4
+    400160: Duct_Grid_5
+    400162: Floor_1
+    400164: Floor_1_2nd_Floor
+    400166: Floor_1_Object
+    400168: Floor_2
+    400170: Floor_3
+    400172: Floor_4
+    400174: Floor_5
+    400176: Ladder_1
+    400178: Ladder_2
+    400180: Pillar_1
+    400182: Pillar_2
+    400184: Pillar_3
+    400186: Pillar_4
+    400188: Pillar_5
+    400190: Pillar_6
+    400192: //RootNode
+    400194: SBox_1
+    400196: SBox_10
+    400198: SBox_11
+    400200: SBox_12
+    400202: SBox_13
+    400204: SBox_14
+    400206: SBox_15
+    400208: SBox_16
+    400210: SBox_2
+    400212: SBox_3
+    400214: SBox_4
+    400216: SBox_5
+    400218: SBox_6
+    400220: SBox_7
+    400222: SBox_8
+    400224: SBox_9
+    400226: Stairs_1
+    400228: Stairs_1_Cont_1
+    400230: Stairs_2
+    400232: Stairs_2_Cont_1
+    400234: Stairs_2_Cont_2
+    400236: Stairs_2_Cont_3
+    400238: Stairs_3
+    400240: Stairs_3_Cont_1
+    400242: Wall_Control1
+    400244: Wall_Control_Hallway
+    400246: Wall_Exit
+    400248: Wall_Store
+    400250: Wood_1
+    400252: Wood_2
+    400254: Wood_3
+    2300000: BBox_1
+    2300002: BBox_10
+    2300004: BBox_11
+    2300006: BBox_12
+    2300008: BBox_13
+    2300010: BBox_14
+    2300012: BBox_15
+    2300014: BBox_16
+    2300016: BBox_17
+    2300018: BBox_18
+    2300020: BBox_19
+    2300022: BBox_2
+    2300024: BBox_20
+    2300026: BBox_21
+    2300028: BBox_22
+    2300030: BBox_23
+    2300032: BBox_24
+    2300034: BBox_3
+    2300036: BBox_4
+    2300038: BBox_5
+    2300040: BBox_6
+    2300042: BBox_7
+    2300044: BBox_8
+    2300046: BBox_9
+    2300048: Bed_1
+    2300050: Bed_2
+    2300052: Bed_2 1
+    2300054: Bed_3
+    2300056: Bed_3 1
+    2300058: Bed_4
+    2300060: Bed_4 1
+    2300062: Bed_5
+    2300064: Bed_5 1
+    2300066: Bed_6
+    2300068: Bed_6 1
+    2300070: Bed_7
+    2300072: Box_1
+    2300074: Box_2
+    2300076: Box_3
+    2300078: Box_4
+    2300080: Box_5
+    2300082: Box_6
+    2300084: Cell_Block_1
+    2300086: Cell_Block_2
+    2300088: Cell_Block_3
+    2300090: Cell_Block_4
+    2300092: Cell_Grid_1
+    2300094: Cell_Grid_2
+    2300096: Cell_Grid_2 1
+    2300098: Cell_Grid_2 2
+    2300100: Cell_Grid_2 3
+    2300102: Cell_Grid_3
+    2300104: Cell_Grid_3 1
+    2300106: Cell_Grid_3 2
+    2300108: Cell_Grid_3 3
+    2300110: Cell_Grid_4
+    2300112: Cell_Grid_4 1
+    2300114: Cell_Grid_4 2
+    2300116: Cell_Grid_4 3
+    2300118: Cell_Grid_5
+    2300120: Cell_Grid_5 1
+    2300122: Cell_Grid_5 2
+    2300124: Cell_Grid_5 3
+    2300126: Cell_Grid_6
+    2300128: Cell_Grid_6 1
+    2300130: Cell_Grid_6 2
+    2300132: Cell_Grid_6 3
+    2300134: Cell_Grid_7
+    2300136: Cell_Grid_8
+    2300138: Cell_Grid_9
+    2300140: Door_1
+    2300142: Door_2
+    2300144: Door_3
+    2300146: Door_4
+    2300148: Door_5
+    2300150: Duct
+    2300152: Duct_Grid_1
+    2300154: Duct_Grid_2
+    2300156: Duct_Grid_3
+    2300158: Duct_Grid_4
+    2300160: Duct_Grid_5
+    2300162: Floor_1
+    2300164: Floor_1_2nd_Floor
+    2300166: Floor_1_Object
+    2300168: Floor_2
+    2300170: Floor_3
+    2300172: Floor_4
+    2300174: Floor_5
+    2300176: Ladder_1
+    2300178: Ladder_2
+    2300180: Pillar_1
+    2300182: Pillar_2
+    2300184: Pillar_3
+    2300186: Pillar_4
+    2300188: Pillar_5
+    2300190: Pillar_6
+    2300192: SBox_1
+    2300194: SBox_10
+    2300196: SBox_11
+    2300198: SBox_12
+    2300200: SBox_13
+    2300202: SBox_14
+    2300204: SBox_15
+    2300206: SBox_16
+    2300208: SBox_2
+    2300210: SBox_3
+    2300212: SBox_4
+    2300214: SBox_5
+    2300216: SBox_6
+    2300218: SBox_7
+    2300220: SBox_8
+    2300222: SBox_9
+    2300224: Stairs_1
+    2300226: Stairs_1_Cont_1
+    2300228: Stairs_2
+    2300230: Stairs_2_Cont_1
+    2300232: Stairs_2_Cont_2
+    2300234: Stairs_2_Cont_3
+    2300236: Stairs_3
+    2300238: Stairs_3_Cont_1
+    2300240: Wall_Control1
+    2300242: Wall_Control_Hallway
+    2300244: Wall_Exit
+    2300246: Wall_Store
+    2300248: Wood_1
+    2300250: Wood_2
+    2300252: Wood_3
+    3300000: BBox_1
+    3300002: BBox_10
+    3300004: BBox_11
+    3300006: BBox_12
+    3300008: BBox_13
+    3300010: BBox_14
+    3300012: BBox_15
+    3300014: BBox_16
+    3300016: BBox_17
+    3300018: BBox_18
+    3300020: BBox_19
+    3300022: BBox_2
+    3300024: BBox_20
+    3300026: BBox_21
+    3300028: BBox_22
+    3300030: BBox_23
+    3300032: BBox_24
+    3300034: BBox_3
+    3300036: BBox_4
+    3300038: BBox_5
+    3300040: BBox_6
+    3300042: BBox_7
+    3300044: BBox_8
+    3300046: BBox_9
+    3300048: Bed_1
+    3300050: Bed_2
+    3300052: Bed_2 1
+    3300054: Bed_3
+    3300056: Bed_3 1
+    3300058: Bed_4
+    3300060: Bed_4 1
+    3300062: Bed_5
+    3300064: Bed_5 1
+    3300066: Bed_6
+    3300068: Bed_6 1
+    3300070: Bed_7
+    3300072: Box_1
+    3300074: Box_2
+    3300076: Box_3
+    3300078: Box_4
+    3300080: Box_5
+    3300082: Box_6
+    3300084: Cell_Block_1
+    3300086: Cell_Block_2
+    3300088: Cell_Block_3
+    3300090: Cell_Block_4
+    3300092: Cell_Grid_1
+    3300094: Cell_Grid_2
+    3300096: Cell_Grid_2 1
+    3300098: Cell_Grid_2 2
+    3300100: Cell_Grid_2 3
+    3300102: Cell_Grid_3
+    3300104: Cell_Grid_3 1
+    3300106: Cell_Grid_3 2
+    3300108: Cell_Grid_3 3
+    3300110: Cell_Grid_4
+    3300112: Cell_Grid_4 1
+    3300114: Cell_Grid_4 2
+    3300116: Cell_Grid_4 3
+    3300118: Cell_Grid_5
+    3300120: Cell_Grid_5 1
+    3300122: Cell_Grid_5 2
+    3300124: Cell_Grid_5 3
+    3300126: Cell_Grid_6
+    3300128: Cell_Grid_6 1
+    3300130: Cell_Grid_6 2
+    3300132: Cell_Grid_6 3
+    3300134: Cell_Grid_7
+    3300136: Cell_Grid_8
+    3300138: Cell_Grid_9
+    3300140: Door_1
+    3300142: Door_2
+    3300144: Door_3
+    3300146: Door_4
+    3300148: Door_5
+    3300150: Duct
+    3300152: Duct_Grid_1
+    3300154: Duct_Grid_2
+    3300156: Duct_Grid_3
+    3300158: Duct_Grid_4
+    3300160: Duct_Grid_5
+    3300162: Floor_1
+    3300164: Floor_1_2nd_Floor
+    3300166: Floor_1_Object
+    3300168: Floor_2
+    3300170: Floor_3
+    3300172: Floor_4
+    3300174: Floor_5
+    3300176: Ladder_1
+    3300178: Ladder_2
+    3300180: Pillar_1
+    3300182: Pillar_2
+    3300184: Pillar_3
+    3300186: Pillar_4
+    3300188: Pillar_5
+    3300190: Pillar_6
+    3300192: SBox_1
+    3300194: SBox_10
+    3300196: SBox_11
+    3300198: SBox_12
+    3300200: SBox_13
+    3300202: SBox_14
+    3300204: SBox_15
+    3300206: SBox_16
+    3300208: SBox_2
+    3300210: SBox_3
+    3300212: SBox_4
+    3300214: SBox_5
+    3300216: SBox_6
+    3300218: SBox_7
+    3300220: SBox_8
+    3300222: SBox_9
+    3300224: Stairs_1
+    3300226: Stairs_1_Cont_1
+    3300228: Stairs_2
+    3300230: Stairs_2_Cont_1
+    3300232: Stairs_2_Cont_2
+    3300234: Stairs_2_Cont_3
+    3300236: Stairs_3
+    3300238: Stairs_3_Cont_1
+    3300240: Wall_Control1
+    3300242: Wall_Control_Hallway
+    3300244: Wall_Exit
+    3300246: Wall_Store
+    3300248: Wood_1
+    3300250: Wood_2
+    3300252: Wood_3
+    4300000: Ladder_1
+    4300002: Ladder_2
+    4300004: Box_1
+    4300006: Box_3
+    4300008: Box_2
+    4300010: Box_4
+    4300012: Box_5
+    4300014: Box_6
+    4300016: Floor_1
+    4300018: Floor_2
+    4300020: Floor_3
+    4300022: Floor_5
+    4300024: Floor_4
+    4300026: Door_1
+    4300028: Door_2
+    4300030: Door_3
+    4300032: Door_4
+    4300034: Door_5
+    4300036: BBox_1
+    4300038: BBox_2
+    4300040: BBox_3
+    4300042: BBox_4
+    4300044: BBox_5
+    4300046: BBox_6
+    4300048: BBox_7
+    4300050: BBox_8
+    4300052: BBox_9
+    4300054: BBox_10
+    4300056: BBox_11
+    4300058: BBox_12
+    4300060: BBox_13
+    4300062: BBox_14
+    4300064: BBox_15
+    4300066: BBox_16
+    4300068: BBox_17
+    4300070: BBox_18
+    4300072: BBox_19
+    4300074: BBox_20
+    4300076: BBox_21
+    4300078: BBox_22
+    4300080: BBox_23
+    4300082: BBox_24
+    4300084: SBox_1
+    4300086: SBox_2
+    4300088: SBox_3
+    4300090: SBox_4
+    4300092: SBox_5
+    4300094: SBox_6
+    4300096: SBox_7
+    4300098: SBox_8
+    4300100: SBox_9
+    4300102: SBox_10
+    4300104: SBox_11
+    4300106: SBox_12
+    4300108: SBox_13
+    4300110: SBox_14
+    4300112: SBox_15
+    4300114: SBox_16
+    4300116: Wood_1
+    4300118: Wood_3
+    4300120: Wood_2
+    4300122: Floor_1_2nd_Floor
+    4300124: Duct_Grid_3
+    4300126: Duct_Grid_1
+    4300128: Duct_Grid_2
+    4300130: Duct_Grid_4
+    4300132: Duct
+    4300134: Floor_1_Object
+    4300136: Pillar_1
+    4300138: Pillar_4
+    4300140: Pillar_6
+    4300142: Pillar_2
+    4300144: Pillar_3
+    4300146: Pillar_5
+    4300148: Wall_Store
+    4300150: Cell_Block_1
+    4300152: Cell_Grid_1
+    4300154: Cell_Grid_2
+    4300156: Cell_Grid_3
+    4300158: Cell_Grid_4
+    4300160: Cell_Grid_5
+    4300162: Cell_Grid_6
+    4300164: Cell_Block_2
+    4300166: Cell_Grid_7
+    4300168: Cell_Grid_2
+    4300170: Cell_Grid_3
+    4300172: Cell_Grid_4
+    4300174: Cell_Grid_5
+    4300176: Cell_Grid_6
+    4300178: Wall_Control_Hallway
+    4300180: Wall_Exit
+    4300182: Bed_1
+    4300184: Bed_2
+    4300186: Bed_3
+    4300188: Bed_4
+    4300190: Bed_5
+    4300192: Bed_6
+    4300194: Bed_7
+    4300196: Bed_2
+    4300198: Bed_3
+    4300200: Bed_4
+    4300202: Bed_5
+    4300204: Bed_6
+    4300206: Cell_Block_3
+    4300208: Cell_Grid_8
+    4300210: Cell_Grid_2
+    4300212: Cell_Grid_3
+    4300214: Cell_Grid_4
+    4300216: Cell_Grid_5
+    4300218: Cell_Grid_6
+    4300220: Cell_Grid_9
+    4300222: Cell_Grid_2
+    4300224: Cell_Grid_3
+    4300226: Cell_Grid_4
+    4300228: Cell_Grid_5
+    4300230: Cell_Grid_6
+    4300232: Cell_Block_4
+    4300234: Duct_Grid_5
+    4300236: Stairs_2_Cont_1
+    4300238: Wall_Control1
+    4300240: Stairs_1
+    4300242: Stairs_1_Cont_1
+    4300244: Stairs_2_Cont_2
+    4300246: Stairs_2_Cont_3
+    4300248: Stairs_3
+    4300250: Stairs_3_Cont_1
+    4300252: Stairs_2
     9500000: //RootNode
   materials:
     importMaterials: 1

@@ -66,5 +66,8 @@
     <Compile Include="Assets\Script\Movement.cs" />
     <Compile Include="Assets\Script\SatelliteMovement.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Standard (Two Sided).shader" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
