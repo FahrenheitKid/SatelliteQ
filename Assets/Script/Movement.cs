@@ -46,6 +46,7 @@ public class Movement : MonoBehaviour {
         translation *= speed;
 
         AnimationControl();
+        SwitchToSatellite();
         translation.y -= gravity;
 
         controller.Move(translation * Time.deltaTime);

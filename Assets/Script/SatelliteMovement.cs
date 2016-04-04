@@ -16,8 +16,8 @@ public class SatelliteMovement : MonoBehaviour
 	void Update ()
     {
         pos.x = player.transform.localPosition.x;
-        pos.y = player.transform.localPosition.y + 30;
-        pos.z = player.transform.localPosition.z - 15;
+        pos.y = player.transform.localPosition.y + 50;
+        pos.z = player.transform.localPosition.z - 30;
 
         transform.localPosition = pos;
 	}
