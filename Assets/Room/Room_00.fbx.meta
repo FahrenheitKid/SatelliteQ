@@ -166,6 +166,12 @@ ModelImporter:
     100316: Wall_Control
     100318: Wall_Experiment
     100320: Wall_Prison_Entrance
+    100322: Plank_1
+    100324: Plank_1_Cont
+    100326: Plank_1_Mid
+    100328: Plank_2
+    100330: Plank_3
+    100332: Plank_3_Mid
     400000: BBox_1
     400002: BBox_10
     400004: BBox_11
@@ -327,6 +333,12 @@ ModelImporter:
     400316: Wall_Control
     400318: Wall_Experiment
     400320: Wall_Prison_Entrance
+    400322: Plank_1
+    400324: Plank_1_Cont
+    400326: Plank_1_Mid
+    400328: Plank_2
+    400330: Plank_3
+    400332: Plank_3_Mid
     2300000: BBox_1
     2300002: BBox_10
     2300004: BBox_11
@@ -486,6 +498,12 @@ ModelImporter:
     2300312: Wall_Control
     2300314: Wall_Experiment
     2300316: Wall_Prison_Entrance
+    2300318: Plank_1
+    2300320: Plank_1_Cont
+    2300322: Plank_1_Mid
+    2300324: Plank_2
+    2300326: Plank_3
+    2300328: Plank_3_Mid
     3300000: BBox_1
     3300002: BBox_10
     3300004: BBox_11
@@ -645,6 +663,12 @@ ModelImporter:
     3300312: Wall_Control
     3300314: Wall_Experiment
     3300316: Wall_Prison_Entrance
+    3300318: Plank_1
+    3300320: Plank_1_Cont
+    3300322: Plank_1_Mid
+    3300324: Plank_2
+    3300326: Plank_3
+    3300328: Plank_3_Mid
     4300000: Ladder_1
     4300002: Ladder_2
     4300004: Box_1
@@ -804,6 +828,12 @@ ModelImporter:
     4300312: Wall_Experiment
     4300314: Wall_Control
     4300316: Wall_Prison_Entrance
+    4300318: Plank_3
+    4300320: Plank_3_Mid
+    4300322: Plank_2
+    4300324: Plank_1
+    4300326: Plank_1_Mid
+    4300328: Plank_1_Cont
     9500000: //RootNode
   materials:
     importMaterials: 1
