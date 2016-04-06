@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour {
     public Camera TopView;
 	CursorLockMode wantedMode; // variavel pra trancar e/ou esconder o cursor
 
+	public bool satelliteMode = false;
     public float speedWalk = 20.0f;
     public float speedWalkBackwards = 15.0f;
     public float speedRun = 40.0f;
@@ -71,6 +72,8 @@ public class Movement : MonoBehaviour {
         translation.y -= gravity;
 
         controller.Move(translation * Time.deltaTime);
+
+		if(satelliteMode == false)
         controller.transform.Rotate(0, rotation.y, 0);
 
         cameraRotatedX -= rotation.x;
@@ -126,6 +129,7 @@ public class Movement : MonoBehaviour {
     //Set Animation Flags
     void AnimationControl()
     {
+		
         //Running Jump
         if (controller.isGrounded)
         {
@@ -199,6 +203,7 @@ public class Movement : MonoBehaviour {
         {
             anim.SetBool("isRunning", false);
         }
+
     }
 
     void CharacterJump()
@@ -212,6 +217,7 @@ public class Movement : MonoBehaviour {
         //Satellite
         if (Input.GetKeyDown(KeyCode.Q))
         {
+			satelliteMode = true;
             speed = 0;
             FirstPerson.enabled = false;
             TopView.enabled = true;
@@ -221,6 +227,8 @@ public class Movement : MonoBehaviour {
 			controller.center = crouchCapsuleCenter;
 			anim.SetBool("isCrouching", true);
 			anim.SetBool("isCrouch", true);
+
+
         }
 
         if (Input.GetKeyUp(KeyCode.Q))
@@ -235,6 +243,8 @@ public class Movement : MonoBehaviour {
 			anim.SetBool("isCrouchWalking", false);
 			anim.SetBool("isCrouching", false);
 			anim.SetBool("isCrouch", false);
+
+			satelliteMode = false;
         }
     }
 }
