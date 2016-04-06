@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour {
     CharacterController controller;
     public Camera FirstPerson;
     public Camera TopView;
+	CursorLockMode wantedMode; // variavel pra trancar e/ou esconder o cursor
 
     public float speedWalk = 20.0f;
     public float speedWalkBackwards = 15.0f;
@@ -37,6 +38,13 @@ public class Movement : MonoBehaviour {
         controller = GetComponent<CharacterController>();
         FirstPerson.enabled = true;
         TopView.enabled = false;
+
+		// esconde e tranca inicialmente
+		Cursor.visible = false;
+		wantedMode = CursorLockMode.Locked;
+		Cursor.lockState = wantedMode;
+	
+
     }
 
     // Update is called once per frame
@@ -69,6 +77,11 @@ public class Movement : MonoBehaviour {
         cameraRotatedX = Mathf.Clamp(cameraRotatedX, -60, 25);
         cameraRotation.x = cameraRotatedX;
         FirstPerson.transform.localEulerAngles = cameraRotation;
+
+		//quando aperta esc, mostra o cursor e destrava
+		if (Input.GetKeyDown (KeyCode.Escape))
+			Cursor.lockState = wantedMode = CursorLockMode.None;
+				Cursor.visible = (CursorLockMode.Locked != wantedMode);
     }
 
     void OnTriggerEnter(Collider obj)
@@ -202,6 +215,12 @@ public class Movement : MonoBehaviour {
             speed = 0;
             FirstPerson.enabled = false;
             TopView.enabled = true;
+
+			FirstPerson.transform.localPosition = crouchCameraPos;
+			controller.height = 7;
+			controller.center = crouchCapsuleCenter;
+			anim.SetBool("isCrouching", true);
+			anim.SetBool("isCrouch", true);
         }
 
         if (Input.GetKeyUp(KeyCode.Q))
@@ -209,6 +228,13 @@ public class Movement : MonoBehaviour {
             speed = speedWalk;
             FirstPerson.enabled = true;
             TopView.enabled = false;
+
+			FirstPerson.transform.localPosition = cameraPos;
+			controller.height = 12.5f;
+			controller.center = capsuleCenter;
+			anim.SetBool("isCrouchWalking", false);
+			anim.SetBool("isCrouching", false);
+			anim.SetBool("isCrouch", false);
         }
     }
 }
