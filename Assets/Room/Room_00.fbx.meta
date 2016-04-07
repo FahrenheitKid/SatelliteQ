@@ -172,6 +172,14 @@ ModelImporter:
     100328: Plank_2
     100330: Plank_3
     100332: Plank_3_Mid
+    100334: Control_Room_Controls
+    100336: Control_Room_Monitors
+    100338: Control_Room_Tables
+    100340: Door_6
+    100342: Wall_Cell_Entrance
+    100344: Wall_Control_Room
+    100346: Wall_Hallway
+    100348: Wall_Storage
     400000: BBox_1
     400002: BBox_10
     400004: BBox_11
@@ -339,6 +347,14 @@ ModelImporter:
     400328: Plank_2
     400330: Plank_3
     400332: Plank_3_Mid
+    400334: Control_Room_Controls
+    400336: Control_Room_Monitors
+    400338: Control_Room_Tables
+    400340: Door_6
+    400342: Wall_Cell_Entrance
+    400344: Wall_Control_Room
+    400346: Wall_Hallway
+    400348: Wall_Storage
     2300000: BBox_1
     2300002: BBox_10
     2300004: BBox_11
@@ -504,6 +520,14 @@ ModelImporter:
     2300324: Plank_2
     2300326: Plank_3
     2300328: Plank_3_Mid
+    2300330: Control_Room_Controls
+    2300332: Control_Room_Monitors
+    2300334: Control_Room_Tables
+    2300336: Door_6
+    2300338: Wall_Cell_Entrance
+    2300340: Wall_Control_Room
+    2300342: Wall_Hallway
+    2300344: Wall_Storage
     3300000: BBox_1
     3300002: BBox_10
     3300004: BBox_11
@@ -669,6 +693,14 @@ ModelImporter:
     3300324: Plank_2
     3300326: Plank_3
     3300328: Plank_3_Mid
+    3300330: Control_Room_Controls
+    3300332: Control_Room_Monitors
+    3300334: Control_Room_Tables
+    3300336: Door_6
+    3300338: Wall_Cell_Entrance
+    3300340: Wall_Control_Room
+    3300342: Wall_Hallway
+    3300344: Wall_Storage
     4300000: Ladder_1
     4300002: Ladder_2
     4300004: Box_1
@@ -834,6 +866,14 @@ ModelImporter:
     4300324: Plank_1
     4300326: Plank_1_Mid
     4300328: Plank_1_Cont
+    4300330: Wall_Storage
+    4300332: Control_Room_Monitors
+    4300334: Wall_Cell_Entrance
+    4300336: Wall_Control_Room
+    4300338: Wall_Hallway
+    4300340: Door_6
+    4300342: Control_Room_Controls
+    4300344: Control_Room_Tables
     9500000: //RootNode
   materials:
     importMaterials: 1
