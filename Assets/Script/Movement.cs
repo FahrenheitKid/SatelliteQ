@@ -9,6 +9,8 @@ public class Movement : MonoBehaviour {
     public Camera TopView;
 	CursorLockMode wantedMode; // variavel pra trancar e/ou esconder o cursor
 
+    
+
 	public bool satelliteMode = false;
     public float speedWalk = 20.0f;
     public float speedWalkBackwards = 15.0f;
@@ -32,11 +34,14 @@ public class Movement : MonoBehaviour {
 
     float cameraRotatedX = 0;
 
+    SatelliteMovement SatMov;
+    bool posUpdated = false;
     // Use this for initialization
     void Start ()
     {
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+        SatMov = GameObject.Find("TopViewCamera").GetComponent<SatelliteMovement>();
         FirstPerson.enabled = true;
         TopView.enabled = false;
 
@@ -217,6 +222,10 @@ public class Movement : MonoBehaviour {
         //Satellite
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            if (satelliteMode == false)
+            {
+                SatMov.PositionUpdate(transform.position);
+            }
 			satelliteMode = true;
             speed = 0;
             FirstPerson.enabled = false;
@@ -227,6 +236,7 @@ public class Movement : MonoBehaviour {
 			controller.center = crouchCapsuleCenter;
 			anim.SetBool("isCrouching", true);
 			anim.SetBool("isCrouch", true);
+
 
 
         }
@@ -245,6 +255,8 @@ public class Movement : MonoBehaviour {
 			anim.SetBool("isCrouch", false);
 
 			satelliteMode = false;
+
+            
         }
     }
 }

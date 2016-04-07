@@ -26,11 +26,11 @@ public class SatelliteMovement : MonoBehaviour
 	float verticalSpeed = 4.0f;
 
 	float speedratio = 1.0f;
-
+    float cameraDistance = 1.0f;
 	// Use this for initialization
 	void Start ()
 	{
-
+        player = GameObject.FindGameObjectWithTag("Player");
 		pos.x = player.transform.localPosition.x;
 		pos.y = player.transform.localPosition.y + 50;
 		pos.z = player.transform.localPosition.z - 30;
@@ -47,32 +47,44 @@ public class SatelliteMovement : MonoBehaviour
 
 	void Update () 
 	{
+        
 		float scroll = Input.GetAxis("Mouse ScrollWheel");
 		transform.Translate(0, scroll * zoomSpeed, scroll * zoomSpeed, Space.World);
 
 		// If Right Button is clicked Camera will move.
 
 
-			float h = horizontalSpeed * Input.GetAxis ("Mouse X") * speedratio;
-			float v = verticalSpeed * Input.GetAxis ("Mouse Y") * speedratio;
+        float h = (horizontalSpeed * Input.GetAxis("Mouse X")) *speedratio;
+        float v = (verticalSpeed * Input.GetAxis("Mouse Y")) *speedratio;
 			transform.Translate(h,0,v, Space.World);
 		Vector3 temp = transform.localPosition;
 
-		float distance = Vector3.Distance(temp, startpos);
-
-		if(distance != 0.0f)
-		speedratio = 1.0f / distance;
+		float distance = Vector3.Distance(transform.position, pos);
+        //Debug.Log(distance);
+        if (distance != 0.0f) 
+		speedratio = 0.5f / (distance * 0.2f);
 		
-		speedratio = speedratio * 5.0f;
+	//	speedratio = speedratio * 5.0f;
 
-		temp.x = Mathf.Clamp(transform.position.x, startpos.x - 50, startpos.x + 50);
-		temp.y = Mathf.Clamp(transform.position.y, startpos.y - 50, startpos.y + 50);
-		temp.z = Mathf.Clamp(transform.position.z, startpos.z - 50, startpos.z + 50);
+        //temp = transform.position;
+        //temp.x = Mathf.Clamp(transform.position.x, pos.x - 50, pos.x + 50);
+        //temp.y = Mathf.Clamp(transform.position.y, pos.y - 50, pos.y + 50);
+        //temp.z = Mathf.Clamp(transform.position.z, pos.z - 50, pos.z + 50);
 
-		transform.localPosition = temp;
+        //transform.localPosition = temp;
 
 
 
 	}
+   public void PositionUpdate(Vector3 newPos)
+    {
+        Debug.Log("Updated");
+        newPos.y = newPos.y + 50;
+       // newPos.z = newPos.z + 50;
+        transform.position = newPos;
+        pos = newPos;
+        speedratio = 0.5f;
+       
+    }
 
 }
