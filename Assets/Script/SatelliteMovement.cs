@@ -4,11 +4,15 @@ using System.Collections;
 public class SatelliteMovement : MonoBehaviour
 {
 	public GameObject player;
-	//public GameObject topcamera = GameObject.Find("TopViewCamera");
+    public Camera camera;
     private Vector3 pos = Vector3.zero;
 	private Vector3 startpos = Vector3.zero;
 	private float speed = 2.0f;
 	private float zoomSpeed = 2.0f;
+    //
+    float maximumZoom = 2.0f;
+   public  float currentFOV;// = camera.fieldOfView;
+ 
 
 	public float minX = -360.0f;
 	public float maxX = 360.0f;
@@ -34,9 +38,10 @@ public class SatelliteMovement : MonoBehaviour
 		pos.x = player.transform.localPosition.x;
 		pos.y = player.transform.localPosition.y + 50;
 		pos.z = player.transform.localPosition.z - 30;
-
+        currentFOV = camera.fieldOfView;
 		transform.localPosition = pos;
 		startpos = pos;
+      //  camera = GameObject.Find("TopViewCamera").camera;
 	}
 
 
@@ -49,11 +54,22 @@ public class SatelliteMovement : MonoBehaviour
 	{
         
 		float scroll = Input.GetAxis("Mouse ScrollWheel");
-		transform.Translate(0, scroll * zoomSpeed, scroll * zoomSpeed, Space.World);
+	//	transform.Translate(0, scroll * zoomSpeed, scroll * zoomSpeed, Space.World);
 
-		// If Right Button is clicked Camera will move.
+        if (Input.GetMouseButton(0))
+        {
+            if (camera.fieldOfView > 20f)
+            {
+                camera.fieldOfView -= 10 * Time.deltaTime;//Mathf.Lerp(currentFOV, maximumZoom, Time.deltaTime * zoomSpeed);
 
+            }
+            
+        }
 
+        if (camera.fieldOfView <= currentFOV && !Input.GetMouseButton(0))
+        {
+            camera.fieldOfView += 30 * Time.deltaTime;
+        }
         float h = (horizontalSpeed * Input.GetAxis("Mouse X")) *speedratio;
         float v = (verticalSpeed * Input.GetAxis("Mouse Y")) *speedratio;
 			transform.Translate(h,0,v, Space.World);
@@ -61,8 +77,8 @@ public class SatelliteMovement : MonoBehaviour
 
 		float distance = Vector3.Distance(transform.position, pos);
         //Debug.Log(distance);
-        if (distance != 0.0f) 
-		speedratio = 0.5f / (distance * 0.2f);
+       // if (distance != 0.0f) 
+		speedratio = 0.5f; // (distance * 0.2f);
 		
 	//	speedratio = speedratio * 5.0f;
 

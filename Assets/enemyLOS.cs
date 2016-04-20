@@ -8,15 +8,19 @@ public class enemyLOS : MonoBehaviour {
      //Ultima posição que o jogador foi visto
     public Vector3 lastSight;
 
+    
     //NavMeshAgent nav;
+    Controller gameControl;
     SphereCollider col;
     GameObject player;
     AudioSource alerta;
 	// Use this for initialization
 	void Start () {
+        lastSight.Set(1000, 1000, 1000);
         col = GetComponent<SphereCollider>();
         player = GameObject.FindGameObjectWithTag("Player");
         alerta = GetComponent<AudioSource>();
+        gameControl = GameObject.FindGameObjectWithTag("GameController").GetComponent<Controller>();
 	}
 	
 	// Update is called once per frame
@@ -28,6 +32,11 @@ public class enemyLOS : MonoBehaviour {
             {
                 alerta.Play();
             }
+            
+        }
+        else
+        {
+            lastSight = gameControl.LastGlobalPlayerPos;
         }
 	
 	}
@@ -59,6 +68,7 @@ public class enemyLOS : MonoBehaviour {
                         playerSighted = true;
                         //Atualiza a ultima posição que o jogador foi visto
                         lastSight = player.transform.position;
+                        gameControl.LastGlobalPlayerPos = player.transform.position;
                     }
                 }
             }
