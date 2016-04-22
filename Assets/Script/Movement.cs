@@ -9,8 +9,6 @@ public class Movement : MonoBehaviour {
     public Camera TopView;
 	CursorLockMode wantedMode; // variavel pra trancar e/ou esconder o cursor
 
-    
-
 	public bool satelliteMode = false;
     public float speedWalk = 20.0f;
     public float speedWalkBackwards = 15.0f;
@@ -18,7 +16,7 @@ public class Movement : MonoBehaviour {
     public float jumpSpeed = 8.0f;
     public float gravity = 70.0f;
     private float speed = 20.0f;
-    private bool ladderTrigger = false;
+    private bool onLadder = false;
 
     private Vector3 cameraRotation = Vector3.zero;
     public float mouseSpeed = 100.0f;
@@ -31,6 +29,10 @@ public class Movement : MonoBehaviour {
     private Vector3 crouchCapsuleCenter = new Vector3(0, 3.5f, 0);
     private Vector3 capsuleCenter = new Vector3(0, 6.25f, 0);
     private bool onDuct = false;
+
+    public Font razerFont;
+    private bool onDoor = false;
+    private Collider targetDoor;
 
     float cameraRotatedX = 0;
 
@@ -49,8 +51,6 @@ public class Movement : MonoBehaviour {
 		Cursor.visible = false;
 		wantedMode = CursorLockMode.Locked;
 		Cursor.lockState = wantedMode;
-	
-
     }
 
     // Update is called once per frame
@@ -60,7 +60,7 @@ public class Movement : MonoBehaviour {
         rotation.x = Input.GetAxis("Mouse Y") * mouseSpeed * Time.deltaTime;
 
         translation.x = Input.GetAxis("Horizontal");
-        if (ladderTrigger == true)
+        if (onLadder == true)
         {
             translation.y = Input.GetAxis("Vertical");
         }
@@ -82,7 +82,8 @@ public class Movement : MonoBehaviour {
         controller.transform.Rotate(0, rotation.y, 0);
 
         cameraRotatedX -= rotation.x;
-        cameraRotatedX = Mathf.Clamp(cameraRotatedX, -60, 25);
+        //Max rotação da câmera
+        cameraRotatedX = Mathf.Clamp(cameraRotatedX, -60, 60);
         cameraRotation.x = cameraRotatedX;
         FirstPerson.transform.localEulerAngles = cameraRotation;
 
@@ -96,7 +97,7 @@ public class Movement : MonoBehaviour {
     {
         if(obj.tag == "Ladder")
         {
-            ladderTrigger = true;
+            onLadder = true;
             gravity = 0;
         }
 
@@ -115,13 +116,19 @@ public class Movement : MonoBehaviour {
                 onDuct = false;
             }
         }
+
+        if (obj.tag == "Door")
+        {
+            onDoor = true;
+            targetDoor = obj;
+        }
     }
 
     void OnTriggerExit(Collider obj)
     {
         if (obj.tag == "Ladder")
         {
-            ladderTrigger = false;
+            onLadder = false;
             gravity = 70.0f;
         }
 
@@ -129,12 +136,42 @@ public class Movement : MonoBehaviour {
         {
             
         }
+
+        if (obj.tag == "Door")
+        {
+            onDoor = false;
+        }
+    }
+
+    void OnGUI()
+    {
+        if (onDoor && targetDoor.transform.localEulerAngles.y > 0)
+        {
+            GUI.skin.font = razerFont;
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F - Close Door");
+        }
+        else if(onDoor)
+        {
+            GUI.skin.font = razerFont;
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F - Open Door");
+        }
     }
 
     //Set Animation Flags
     void AnimationControl()
     {
-		
+	    if(onDoor && Input.GetKeyDown(KeyCode.F))
+        {
+            if(targetDoor.transform.localEulerAngles.y > 0)
+            {
+                targetDoor.transform.Rotate(new Vector3(0, -160, 0));
+            }
+            else
+            {
+                targetDoor.transform.Rotate(new Vector3(0, 160, 0));
+            }
+            onDoor = false;
+        }
         //Running Jump
         if (controller.isGrounded)
         {
@@ -216,7 +253,7 @@ public class Movement : MonoBehaviour {
         //translation
     }
 
-    //Change to Satellite
+    //Switch camera to Satellite
     void SwitchToSatellite()
     {
         //Satellite
