@@ -9,9 +9,9 @@ public class SatelliteMovement : MonoBehaviour
 	private Vector3 startpos = Vector3.zero;
 	private float speed = 2.0f;
 	private float zoomSpeed = 2.0f;
-    //
     float maximumZoom = 2.0f;
-   public  float currentFOV;// = camera.fieldOfView;
+    float initialDistanceFromPlayer;
+    public  float currentFOV;// = camera.fieldOfView;
  
 
 	public float minX = -360.0f;
@@ -53,54 +53,67 @@ public class SatelliteMovement : MonoBehaviour
 	void Update () 
 	{
         
-		float scroll = Input.GetAxis("Mouse ScrollWheel");
-	//	transform.Translate(0, scroll * zoomSpeed, scroll * zoomSpeed, Space.World);
-
-        if (Input.GetMouseButton(0))
+	    if (Input.GetMouseButton(0))
         {
             if (camera.fieldOfView > 20f)
             {
-                camera.fieldOfView -= 10 * Time.deltaTime;//Mathf.Lerp(currentFOV, maximumZoom, Time.deltaTime * zoomSpeed);
-
+                camera.fieldOfView -= 10 * Time.deltaTime;
+            
+             
+                    
             }
+           
             
         }
-
+        if (camera.fieldOfView <= 20f)
+        {
+            Debug.DrawRay(transform.position, transform.forward * 100, Color.red);
+            if (Input.GetMouseButtonUp(0))
+            {
+                RaycastHit hit;
+                Ray ray = new Ray();
+                ray.origin = transform.position;
+                ray.direction = transform.forward * 100;
+                //  Debug.DrawRay(transform.position, transform.forward, Color.red);
+                if (Physics.Raycast(ray, out hit))
+                {
+                    Debug.Log("Hit " + hit.collider.gameObject.name);
+                    if (hit.collider.gameObject.tag == "Enemy" )
+                    {
+                        DestroyObject(hit.collider.gameObject);
+                    }
+                }
+            }
+        }
         if (camera.fieldOfView <= currentFOV && !Input.GetMouseButton(0))
         {
             camera.fieldOfView += 30 * Time.deltaTime;
         }
-        float h = (horizontalSpeed * Input.GetAxis("Mouse X")) *speedratio;
-        float v = (verticalSpeed * Input.GetAxis("Mouse Y")) *speedratio;
-			transform.Translate(h,0,v, Space.World);
-		Vector3 temp = transform.localPosition;
-
-		float distance = Vector3.Distance(transform.position, pos);
-        //Debug.Log(distance);
-       // if (distance != 0.0f) 
-		speedratio = 0.5f; // (distance * 0.2f);
-		
-	//	speedratio = speedratio * 5.0f;
-
-        //temp = transform.position;
-        //temp.x = Mathf.Clamp(transform.position.x, pos.x - 50, pos.x + 50);
-        //temp.y = Mathf.Clamp(transform.position.y, pos.y - 50, pos.y + 50);
-        //temp.z = Mathf.Clamp(transform.position.z, pos.z - 50, pos.z + 50);
-
-        //transform.localPosition = temp;
-
-
-
+        moveSatellite();  
+	
 	}
    public void PositionUpdate(Vector3 newPos)
     {
         Debug.Log("Updated");
-        newPos.y = newPos.y + 50;
-       // newPos.z = newPos.z + 50;
+        newPos.y = newPos.y+50;
+        newPos.z = newPos.z - 25;
         transform.position = newPos;
         pos = newPos;
         speedratio = 0.5f;
-       
+        initialDistanceFromPlayer = Vector3.Distance(pos, player.transform.position);
     }
+    void moveSatellite()
+   {
+       Debug.Log(speedratio);
+       if (speedratio > 0.07f)
+       {
+           float h = (horizontalSpeed * Input.GetAxis("Mouse X")) * speedratio;
+           float v = (verticalSpeed * Input.GetAxis("Mouse Y")) * speedratio;
+           transform.Translate(h, 0, v, Space.World);
+           Vector3 temp = transform.localPosition;
+           float actualDistance = Vector3.Distance(transform.position, player.transform.position);
+           speedratio = 0.5f * ((initialDistanceFromPlayer / actualDistance) / 5);
+       }
+   }
 
 }
