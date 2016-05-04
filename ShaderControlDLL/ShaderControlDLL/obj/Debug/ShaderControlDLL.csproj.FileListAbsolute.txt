@@ -1,0 +1,7 @@
+C:\Users\Kydrang\Desktop\Codes\ShaderControlDLL\ShaderControlDLL\bin\Debug\ShaderControlDLL.dll
+C:\Users\Kydrang\Desktop\Codes\ShaderControlDLL\ShaderControlDLL\bin\Debug\ShaderControlDLL.pdb
+C:\Users\Kydrang\Desktop\Codes\ShaderControlDLL\ShaderControlDLL\bin\Debug\UnityEngine.dll
+C:\Users\Kydrang\Desktop\Codes\ShaderControlDLL\ShaderControlDLL\bin\Debug\UnityEngine.xml
+C:\Users\Kydrang\Desktop\Codes\ShaderControlDLL\ShaderControlDLL\obj\Debug\ShaderControlDLL.csprojResolveAssemblyReference.cache
+C:\Users\Kydrang\Desktop\Codes\ShaderControlDLL\ShaderControlDLL\obj\Debug\ShaderControlDLL.dll
+C:\Users\Kydrang\Desktop\Codes\ShaderControlDLL\ShaderControlDLL\obj\Debug\ShaderControlDLL.pdb

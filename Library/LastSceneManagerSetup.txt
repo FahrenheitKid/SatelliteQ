@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Clone2.unity
+- path: Assets/GameSCENE/GameSCENE.unity
   isLoaded: 1
   isActive: 1

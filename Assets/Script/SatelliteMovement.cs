@@ -104,7 +104,7 @@ public class SatelliteMovement : MonoBehaviour
     }
     void moveSatellite()
    {
-       Debug.Log(speedratio);
+       //Debug.Log(speedratio);
        if (speedratio > 0.07f)
        {
            float h = (horizontalSpeed * Input.GetAxis("Mouse X")) * speedratio;

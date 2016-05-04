@@ -24,8 +24,12 @@ public class Movement : MonoBehaviour {
     private Vector3 translation = Vector3.zero;
     private Vector3 rotation = Vector3.zero;
 
-    private Vector3 cameraPos = new Vector3(0, 13.0f, 2);
-    private Vector3 crouchCameraPos = new Vector3(0, 7.5f, 2);
+    //different camera position to animations
+    private Vector3 idleCameraPos = new Vector3(0, 11.5f, 0.8f);
+    private Vector3 crouchCameraPos = new Vector3(0, 6, 5);
+    private Vector3 walkCameraPos = new Vector3(0, 10, 3.1f);
+    private Vector3 runCameraPos = new Vector3(0, 11.5f, 1.5f);
+
     private Vector3 crouchCapsuleCenter = new Vector3(0, 3.5f, 0);
     private Vector3 capsuleCenter = new Vector3(0, 6.25f, 0);
     private bool onDuct = false;
@@ -45,6 +49,7 @@ public class Movement : MonoBehaviour {
         controller = GetComponent<CharacterController>();
         SatMov = GameObject.Find("TopViewCamera").GetComponent<SatelliteMovement>();
         FirstPerson.enabled = true;
+        FirstPerson.transform.localPosition = idleCameraPos;
         TopView.enabled = false;
 
 		// esconde e tranca inicialmente
@@ -157,6 +162,25 @@ public class Movement : MonoBehaviour {
         }
     }
 
+    void cameraControl(string key)
+    {
+        switch (key)
+        {
+            case "Crouch":
+                FirstPerson.transform.localPosition = crouchCameraPos;
+                break;
+            case "Walk":
+                FirstPerson.transform.localPosition = walkCameraPos;
+                break;
+            case "Run":
+                FirstPerson.transform.localPosition = runCameraPos;
+                break;
+            case "Idle":
+                FirstPerson.transform.localPosition = idleCameraPos;
+                break;
+        }
+    }
+
     //Set Animation Flags
     void AnimationControl()
     {
@@ -179,18 +203,17 @@ public class Movement : MonoBehaviour {
             {
                 anim.SetTrigger("isRunningJump");
                 translation.y = 1000;
-                Debug.Log("Jumped");
+                //Debug.Log("Jumped");
             }
         }
         else if(!controller.isGrounded)
         {
-            Debug.Log("Not on Ground");
+            //Debug.Log("Not on Ground");
         }
 
         //Crouch
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            FirstPerson.transform.localPosition = crouchCameraPos;
             controller.height = 7;
             controller.center = crouchCapsuleCenter;
             anim.SetBool("isCrouching", true);
@@ -198,7 +221,6 @@ public class Movement : MonoBehaviour {
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            FirstPerson.transform.localPosition = cameraPos;
             controller.height = 12.5f;
             controller.center = capsuleCenter;
             anim.SetBool("isCrouchWalking", false);
@@ -253,7 +275,7 @@ public class Movement : MonoBehaviour {
         //translation
     }
 
-    //Switch camera to Satellite
+    //Switch satelliteCamera to Satellite
     void SwitchToSatellite()
     {
         //Satellite
@@ -268,7 +290,6 @@ public class Movement : MonoBehaviour {
             FirstPerson.enabled = false;
             TopView.enabled = true;
 
-			FirstPerson.transform.localPosition = crouchCameraPos;
 			controller.height = 7;
 			controller.center = crouchCapsuleCenter;
 			anim.SetBool("isCrouching", true);
@@ -284,7 +305,6 @@ public class Movement : MonoBehaviour {
             FirstPerson.enabled = true;
             TopView.enabled = false;
 
-			FirstPerson.transform.localPosition = cameraPos;
 			controller.height = 12.5f;
 			controller.center = capsuleCenter;
 			anim.SetBool("isCrouchWalking", false);
