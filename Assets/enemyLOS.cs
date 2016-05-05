@@ -13,13 +13,13 @@ public class enemyLOS : MonoBehaviour {
     Controller gameControl;
     SphereCollider col;
     GameObject player;
-    AudioSource alerta;
+  
 	// Use this for initialization
 	void Start () {
         lastSight.Set(1000, 1000, 1000);
         col = GetComponent<SphereCollider>();
         player = GameObject.FindGameObjectWithTag("Player");
-        alerta = GetComponent<AudioSource>();
+      
         gameControl = GameObject.FindGameObjectWithTag("GameController").GetComponent<Controller>();
 	}
 	
@@ -28,10 +28,7 @@ public class enemyLOS : MonoBehaviour {
 
         if (playerSighted == true)
         {
-            if (!alerta.isPlaying)
-            {
-                alerta.Play();
-            }
+
             
         }
         else
@@ -58,9 +55,9 @@ public class enemyLOS : MonoBehaviour {
                 Ray ray = new Ray();
                 ray.origin = transform.position + transform.up;
                 ray.direction = direction.normalized;
-                Debug.DrawRay(transform.position + transform.up * 2, direction.normalized*100, Color.green);
+                Debug.DrawRay(transform.position + transform.up * 2, direction.normalized*col.radius, Color.green);
                 //Se o raycast acertar algo
-                if (Physics.Raycast(ray, out hit)) 
+                if (Physics.Raycast(ray,out hit))
                 {
                     //E se esse algo for o jogador
                     if (hit.collider.gameObject == player)

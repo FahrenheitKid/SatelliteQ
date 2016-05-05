@@ -3,23 +3,26 @@ using System.Collections;
 
 public class Inimigo : MonoBehaviour
 {
-
-    public float patrolSpeed = 8f;
-    public float chaseSpeed = 15f;
+    public Animator anim;
+    public float patrolSpeed = 10f;
+    public float chaseSpeed = 30f;
     public Transform[] waypoints;
     int waypointIndex;
     enemyLOS LOS;
     NavMeshAgent nav;
     Weapon gun;
     Controller gameControl;
+
     // Use this for initialization
     void Start()
     {
         gun = GetComponent<Weapon>();
         LOS = GetComponent<enemyLOS>();
         nav = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
         waypointIndex = 0;
         gameControl = GameObject.FindGameObjectWithTag("GameController").GetComponent<Controller>();
+       
     }
 
     // Update is called once per frame
@@ -29,23 +32,26 @@ public class Inimigo : MonoBehaviour
         {
             Shoot();
         }
-        if(LOS.lastSight != gameControl.ResetPosition)
+        if(LOS.lastSight != gameControl.ResetPosition && LOS.playerSighted == false)
         {
             Chase(LOS.lastSight);
         }
-        else
+        else if (LOS.playerSighted == false)
         {
             Patrol();
         }
     }
     void Shoot()
     {
-      //  nav.Stop();
+        anim.SetBool("isShooting", true);
+        nav.Stop();
         gun.Shoot();
     }
     void Chase(Vector3 Destination)
     {
-        //nav.Resume();
+        nav.Resume();
+        anim.SetBool("isShooting", false);
+        anim.SetBool("isRunning", true);
         nav.speed = chaseSpeed;
         nav.destination = Destination;
         if (nav.remainingDistance < nav.stoppingDistance)
@@ -56,9 +62,10 @@ public class Inimigo : MonoBehaviour
     }
     void Patrol()
     {
-       // nav.Resume();
+        nav.Resume();
         nav.speed = patrolSpeed;
-
+        anim.SetBool("isShooting", false);
+        anim.SetBool("isRunning", false);
         if (nav.remainingDistance < nav.stoppingDistance)
         {
             waypointIndex++;
