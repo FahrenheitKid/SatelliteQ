@@ -36,7 +36,9 @@ public class Movement : MonoBehaviour {
 
     public Font razerFont;
     private bool onDoor = false;
+    private bool onButton = false;
     private Collider targetDoor;
+    private Collider targetDoorButton;
 
     float cameraRotatedX = 0;
 
@@ -122,10 +124,18 @@ public class Movement : MonoBehaviour {
             }
         }
 
-        if (obj.tag == "Door")
+        if (obj.tag == "Door" || obj.tag == "DoorTimer")
         {
             onDoor = true;
             targetDoor = obj;
+        }
+
+        if(obj.tag == "DoorButton")
+        {
+            onButton = true;
+            targetDoorButton = obj;
+            
+
         }
     }
 
@@ -142,9 +152,16 @@ public class Movement : MonoBehaviour {
             
         }
 
-        if (obj.tag == "Door")
+        if (obj.tag == "Door" || obj.tag == "DoorTimer")
         {
             onDoor = false;
+        }
+
+        if (obj.tag == "DoorButton")
+        {
+            onButton = false;
+            
+
         }
     }
 
@@ -159,6 +176,13 @@ public class Movement : MonoBehaviour {
         {
             GUI.skin.font = razerFont;
             GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F - Open Door");
+        }
+
+
+        if (onButton)
+        {
+            GUI.skin.font = razerFont;
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F to Press Button");
         }
     }
 
@@ -186,16 +210,45 @@ public class Movement : MonoBehaviour {
     {
 	    if(onDoor && Input.GetKeyDown(KeyCode.F))
         {
-            if(targetDoor.transform.localEulerAngles.y > 0)
+            if (targetDoor.tag == "Door")
             {
-                targetDoor.transform.Rotate(new Vector3(0, -160, 0));
+                if (targetDoor.transform.localEulerAngles.y > 0)
+                {
+                    targetDoor.transform.Rotate(new Vector3(0, -160, 0));
+                }
+                else
+                {
+                    targetDoor.transform.Rotate(new Vector3(0, 160, 0));
+                }
+                onDoor = false;
             }
-            else
+
+            if(targetDoor.tag == "DoorTimer")
             {
-                targetDoor.transform.Rotate(new Vector3(0, 160, 0));
+                DoorBehaviour script;
+                GameObject parent;
+                parent = targetDoorButton.transform.parent.gameObject;
+                script = parent.transform.Find("Door").GetComponent<DoorBehaviour>();
+                script.openDoor();
             }
-            onDoor = false;
+
         }
+
+        if (onButton && Input.GetKeyDown(KeyCode.F))
+        {
+            DoorBehaviour script;
+            GameObject parent;
+           // Debug.Log(targetDoorButton.name);
+            parent = targetDoorButton.transform.parent.gameObject;
+            Debug.Log(parent.name);
+
+            script = parent.transform.Find("Door").GetComponent<DoorBehaviour>();
+
+            script.pressButton();
+            
+        }
+
+
         //Running Jump
         if (controller.isGrounded)
         {
