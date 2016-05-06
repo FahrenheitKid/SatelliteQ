@@ -1,4 +1,4 @@
-﻿Shader "Outlined/Silhouetted Bumped Diffuse" {
+﻿Shader "Custom/Silhueta de Cor Unica" {
 	Properties {
 		_Color ("Main Color", Color) = (.5,.5,.5,1)
 		_OutlineColor ("Outline Color", Color) = (0,0,0,1)
@@ -46,14 +46,10 @@ ENDCG
 			Tags { "LightMode" = "Always" }
 			Cull Off
 			ZWrite Off
-			ZTest Always
+			ZTest Always //ZTest p/ sobreposição do objeto
  
-			// you can choose what kind of blending mode you want for the outline
-			Blend SrcAlpha OneMinusSrcAlpha // Normal
-			//Blend One One // Additive
-			//Blend One OneMinusDstColor // Soft Additive
-			//Blend DstColor Zero // Multiplicative
-			//Blend DstColor SrcColor // 2x Multiplicative
+			Blend SrcAlpha OneMinusSrcAlpha 
+
  
 CGPROGRAM
 #pragma vertex vert

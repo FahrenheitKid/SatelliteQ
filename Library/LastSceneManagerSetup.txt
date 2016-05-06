@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/GameSCENE/GameSCENE.unity
+- path: Assets/Rossana.unity
   isLoaded: 1
   isActive: 1
