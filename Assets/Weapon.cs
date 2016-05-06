@@ -53,7 +53,7 @@ public class Weapon : MonoBehaviour {
         {
             shooting = true;
             SFX();
-            //hp.takeDamage(damage);
+            hp.takeDamage(damage);
         }
     }
    void SFX()

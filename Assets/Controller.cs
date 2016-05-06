@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class Controller : MonoBehaviour {
     int hp = 3;
     bool dead = false;
@@ -16,7 +16,10 @@ public class Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+	if (hp <= 0)
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 	}
 
     public void takeDamage(int damageTaken)

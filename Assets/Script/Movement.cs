@@ -25,7 +25,7 @@ public class Movement : MonoBehaviour {
     private Vector3 rotation = Vector3.zero;
 
     //different camera position to animations
-    private Vector3 idleCameraPos = new Vector3(0, 11.5f, 0.8f);
+    private Vector3 idleCameraPos = new Vector3(0, 10f, 4.0f);
     private Vector3 crouchCameraPos = new Vector3(0, 6, 5);
     private Vector3 walkCameraPos = new Vector3(0, 10, 3.1f);
     private Vector3 runCameraPos = new Vector3(0, 11.5f, 1.5f);
