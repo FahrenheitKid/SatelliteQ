@@ -27,8 +27,8 @@ public class Movement : MonoBehaviour {
     //different camera position to animations
     private Vector3 idleCameraPos = new Vector3(0, 10f, 4.0f);
     private Vector3 crouchCameraPos = new Vector3(0, 6, 5);
-    private Vector3 walkCameraPos = new Vector3(0, 10, 3.1f);
-    private Vector3 runCameraPos = new Vector3(0, 11.5f, 1.5f);
+    private Vector3 walkCameraPos = new Vector3(0, 10, 3.5f);
+    private Vector3 runCameraPos = new Vector3(0, 11.5f, 2.5f);
 
     private Vector3 crouchCapsuleCenter = new Vector3(0, 3.5f, 0);
     private Vector3 capsuleCenter = new Vector3(0, 6.25f, 0);
@@ -112,14 +112,10 @@ public class Movement : MonoBehaviour {
         {
             if(!onDuct)
             {
-                controller.height = 7;
-                controller.center = crouchCapsuleCenter;
                 onDuct = true;
             }
             else
             {
-                controller.height = 12.5f;
-                controller.center = capsuleCenter;
                 onDuct = false;
             }
         }
@@ -145,11 +141,6 @@ public class Movement : MonoBehaviour {
         {
             onLadder = false;
             gravity = 70.0f;
-        }
-
-        if (obj.tag == "Duct")
-        {
-            
         }
 
         if (obj.tag == "Door" || obj.tag == "DoorTimer")
@@ -208,7 +199,21 @@ public class Movement : MonoBehaviour {
     //Set Animation Flags
     void AnimationControl()
     {
-	    if(onDoor && Input.GetKeyDown(KeyCode.F))
+        //TESTE------------------------------------------------------------
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            Alarm alarm_script = GameObject.Find("Alarm").GetComponent<Alarm>();
+            if(!alarm_script.alarmOn)
+            {
+                alarm_script.StartAlarm();
+            }
+            else
+            {
+                alarm_script.StopAlarm();
+            }
+        }
+        //TESTE------------------------------------------------------------
+        if (onDoor && Input.GetKeyDown(KeyCode.F))
         {
             if (targetDoor.tag == "Door")
             {
@@ -245,7 +250,6 @@ public class Movement : MonoBehaviour {
             script = parent.transform.Find("Door").GetComponent<DoorBehaviour>();
 
             script.pressButton();
-            
         }
 
 
@@ -269,6 +273,7 @@ public class Movement : MonoBehaviour {
         {
             controller.height = 7;
             controller.center = crouchCapsuleCenter;
+            cameraControl("Crouch");
             anim.SetBool("isCrouching", true);
             anim.SetBool("isCrouch", true);
         }
@@ -276,6 +281,7 @@ public class Movement : MonoBehaviour {
         {
             controller.height = 12.5f;
             controller.center = capsuleCenter;
+            cameraControl("Idle");
             anim.SetBool("isCrouchWalking", false);
             anim.SetBool("isCrouching", false);
             anim.SetBool("isCrouch", false);
@@ -285,6 +291,7 @@ public class Movement : MonoBehaviour {
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftControl))
         {
             anim.SetBool("isCrouchWalking", true);
+            cameraControl("Crouch");
         }
         else if (Input.GetKey(KeyCode.W) && Input.GetKeyUp(KeyCode.LeftControl))
         {
@@ -294,6 +301,7 @@ public class Movement : MonoBehaviour {
         }
         else if (Input.GetKeyUp(KeyCode.W) && Input.GetKey(KeyCode.LeftControl))
         {
+            cameraControl("Crouch");
             anim.SetBool("isCrouchWalking", false);
             anim.SetBool("isCrouching", false);
             anim.SetBool("isCrouch", true);
@@ -302,6 +310,7 @@ public class Movement : MonoBehaviour {
         //Walk
         if (translation.z != 0 && Input.GetKey(KeyCode.W))
         {
+            cameraControl("Walk");
             anim.SetBool("isWalking", true);
             speed = speedWalk;
         }
@@ -313,6 +322,7 @@ public class Movement : MonoBehaviour {
         //Run
         if (translation.z != 0 && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
         {
+            cameraControl("Run");
             anim.SetBool("isRunning", true);
             speed = speedRun;
         }
