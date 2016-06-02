@@ -212,19 +212,13 @@ public class Movement : MonoBehaviour {
                 alarm_script.StopAlarm();
             }
         }
-        //TESTE------------------------------------------------------------
+        //------------------------------------------------------------
         if (onDoor && Input.GetKeyDown(KeyCode.F))
         {
             if (targetDoor.tag == "Door")
             {
-                if (targetDoor.transform.localEulerAngles.y > 0)
-                {
-                    targetDoor.transform.Rotate(new Vector3(0, -160, 0));
-                }
-                else
-                {
-                    targetDoor.transform.Rotate(new Vector3(0, 160, 0));
-                }
+                DoorBehaviour doorScript = targetDoor.GetComponent<DoorBehaviour>();
+                doorScript.interactDoor();
                 onDoor = false;
             }
 

@@ -312,6 +312,10 @@ ModelImporter:
     100608: Cell_Handrail_Part_9
     100610: Cell_Handrail_Part_9 1
     100612: polySurface3
+    100614: Glass_Control_Room_3
+    100616: Glass_Control_Room_4
+    100618: Glass_Control_Room_5
+    100620: Glass_Control_Room_6
     400000: BBox_1
     400002: BBox_10
     400004: BBox_11
@@ -619,6 +623,10 @@ ModelImporter:
     400608: Cell_Handrail_Part_9
     400610: Cell_Handrail_Part_9 1
     400612: polySurface3
+    400614: Glass_Control_Room_3
+    400616: Glass_Control_Room_4
+    400618: Glass_Control_Room_5
+    400620: Glass_Control_Room_6
     2300000: BBox_1
     2300002: BBox_10
     2300004: BBox_11
@@ -912,6 +920,10 @@ ModelImporter:
     2300580: Cell_Handrail_Part_9
     2300582: Cell_Handrail_Part_9 1
     2300584: polySurface3
+    2300586: Glass_Control_Room_3
+    2300588: Glass_Control_Room_4
+    2300590: Glass_Control_Room_5
+    2300592: Glass_Control_Room_6
     3300000: BBox_1
     3300002: BBox_10
     3300004: BBox_11
@@ -1205,6 +1217,10 @@ ModelImporter:
     3300580: Cell_Handrail_Part_9
     3300582: Cell_Handrail_Part_9 1
     3300584: polySurface3
+    3300586: Glass_Control_Room_3
+    3300588: Glass_Control_Room_4
+    3300590: Glass_Control_Room_5
+    3300592: Glass_Control_Room_6
     4300000: Ladder_1
     4300002: Ladder_2
     4300004: Box_1
@@ -1498,6 +1514,10 @@ ModelImporter:
     4300580: Cell_Handrail_Part_22
     4300582: Cell_Handrail_Part_21
     4300584: polySurface3
+    4300586: Glass_Control_Room_5
+    4300588: Glass_Control_Room_6
+    4300590: Glass_Control_Room_3
+    4300592: Glass_Control_Room_4
     9500000: //RootNode
   materials:
     importMaterials: 1

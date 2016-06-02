@@ -10,8 +10,25 @@ public class Alarm : MonoBehaviour
     public float lowIntensity = 0.5f;
     public float changeMargin = 0.2f;
     public bool alarmOn;
+    private bool justActivated;
     private float targetIntensity;
     public List<Light> lights;
+
+    [System.Serializable]
+    public class LightObject
+    {
+        [System.Serializable]
+        public class Objs
+        {
+            public GameObject objTarget;
+            public bool rotate_x;
+            public bool rotate_y;
+            public bool rotate_z;
+        }
+        public float rotationSpeed;
+        public List<Objs> obj;
+    }
+    public LightObject lightObject;
     AudioSource alarmSound;
 
     // Use this for initialization
@@ -19,6 +36,7 @@ public class Alarm : MonoBehaviour
     {
         alarmSound = GetComponent<AudioSource>();
         alarmOn = false;
+        justActivated = false;
         targetIntensity = highIntensity;
 	}
 	
@@ -27,20 +45,83 @@ public class Alarm : MonoBehaviour
     {
 	    if(alarmOn)
         {
-            for(int i = 0; i < lights.Count; i++)
+            for (int i = 0; i < lightObject.obj.Count; i++)
             {
-                lights[i].intensity = Mathf.Lerp(lights[i].intensity, targetIntensity, fadeSpeed * Time.deltaTime);
-                CheckTargetIntensity(lights[i]);
+                //set intensity once
+                if (justActivated)
+                {
+                    Light[] Children = lightObject.obj[i].objTarget.GetComponentsInChildren<Light>();
+                    foreach (Light lt in Children)
+                    {
+                        lt.intensity = 8;
+                    }
+                }
+                //rotate
+                if (lightObject.obj[i].rotate_x)
+                {
+                    Vector3 rot;
+                    rot.x = lightObject.rotationSpeed;
+                    rot.y = 0;
+                    rot.z = 0;
+                    lightObject.obj[i].objTarget.transform.Rotate(rot);
+                }
+                if (lightObject.obj[i].rotate_y)
+                {
+                    Vector3 rot;
+                    rot.x = 0;
+                    rot.y = lightObject.rotationSpeed;
+                    rot.z = 0;
+                    lightObject.obj[i].objTarget.transform.Rotate(rot);
+                }
+                if (lightObject.obj[i].rotate_z)
+                {
+                    Vector3 rot;
+                    rot.x = 0;
+                    rot.y = 0;
+                    rot.z = lightObject.rotationSpeed;
+                    lightObject.obj[i].objTarget.transform.Rotate(rot);
+                }
             }
         }
         else
         {
-            for (int i = 0; i < lights.Count; i++)
+            if (justActivated)
             {
-                lights[i].intensity = Mathf.Lerp(lights[i].intensity, 0.0f, fadeSpeed * Time.deltaTime);
+                for (int i = 0; i < lightObject.obj.Count; i++)
+                {
+                    Light[] Children = lightObject.obj[i].objTarget.GetComponentsInChildren<Light>();
+                    foreach (Light lt in Children)
+                    {
+                        lt.intensity = 0;
+                    }
+                }
             }
         }
 	}
+
+    void RotateObjectWithLight(List<Light> lt, bool isOn)
+    {
+
+    }
+
+    void PulseLight(List<Light> lt, bool isOn)
+    {
+        if (isOn)
+        {
+            for (int i = 0; i < lt.Count; i++)
+            {
+                lt[i].intensity = Mathf.Lerp(lt[i].intensity, targetIntensity, fadeSpeed * Time.deltaTime);
+                CheckTargetIntensity(lt[i]);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < lt.Count; i++)
+            {
+                lt[i].intensity = Mathf.Lerp(lt[i].intensity, 0.0f, fadeSpeed * Time.deltaTime);
+            }
+        }
+    }
 
     void CheckTargetIntensity(Light light)
     {
@@ -60,12 +141,14 @@ public class Alarm : MonoBehaviour
     public void StartAlarm()
     {
         alarmOn = true;
+        justActivated = true;
         alarmSound.Play();
     }
 
     public void StopAlarm()
     {
         alarmOn = false;
+        justActivated = true;
         alarmSound.Stop();
     }
 }
