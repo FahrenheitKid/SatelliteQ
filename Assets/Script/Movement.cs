@@ -63,8 +63,11 @@ public class Movement : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        rotation.y = Input.GetAxis("Mouse X") * mouseSpeed * Time.deltaTime;
-        rotation.x = Input.GetAxis("Mouse Y") * mouseSpeed * Time.deltaTime;
+        if (!satelliteMode)
+        {
+            rotation.y = Input.GetAxis("Mouse X") * mouseSpeed * Time.deltaTime;
+            rotation.x = Input.GetAxis("Mouse Y") * mouseSpeed * Time.deltaTime;
+        }
 
         translation.x = Input.GetAxis("Horizontal");
         if (onLadder == true)
@@ -342,35 +345,33 @@ public class Movement : MonoBehaviour {
             {
                 SatMov.PositionUpdate(transform.position);
             }
+            SatMov.isOn = true;
 			satelliteMode = true;
             speed = 0;
             FirstPerson.enabled = false;
             TopView.enabled = true;
 
+            //capsule player
 			controller.height = 7;
 			controller.center = crouchCapsuleCenter;
 			anim.SetBool("isCrouching", true);
 			anim.SetBool("isCrouch", true);
-
-
-
         }
 
         if (Input.GetKeyUp(KeyCode.Q))
         {
             speed = speedWalk;
+            SatMov.isOn = false;
+            satelliteMode = false;
             FirstPerson.enabled = true;
             TopView.enabled = false;
 
-			controller.height = 12.5f;
+            //capsule player
+            controller.height = 12.5f;
 			controller.center = capsuleCenter;
 			anim.SetBool("isCrouchWalking", false);
 			anim.SetBool("isCrouching", false);
 			anim.SetBool("isCrouch", false);
-
-			satelliteMode = false;
-
-            
         }
     }
 }

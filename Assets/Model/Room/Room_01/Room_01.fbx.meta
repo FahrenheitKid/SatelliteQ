@@ -58,6 +58,7 @@ ModelImporter:
     100100: Wall_Intern_3
     100102: Wall_Intern_7
     100104: Wall_Intern_8
+    100106: Station1
     400000: Box_1
     400002: Box_10
     400004: Box_11
@@ -111,6 +112,7 @@ ModelImporter:
     400100: Wall_Intern_3
     400102: Wall_Intern_7
     400104: Wall_Intern_8
+    400106: Station1
     2300000: Box_1
     2300002: Box_10
     2300004: Box_11
@@ -160,6 +162,7 @@ ModelImporter:
     2300092: Wall_Intern_3
     2300094: Wall_Intern_7
     2300096: Wall_Intern_8
+    2300098: Station1
     3300000: Box_1
     3300002: Box_10
     3300004: Box_11
@@ -209,6 +212,7 @@ ModelImporter:
     3300092: Wall_Intern_3
     3300094: Wall_Intern_7
     3300096: Wall_Intern_8
+    3300098: Station1
     4300000: Box_1
     4300002: Box_2
     4300004: Box_3
@@ -257,6 +261,7 @@ ModelImporter:
     4300090: Wall_Intern_8
     4300092: Wall_Intern_7
     4300094: Wall_Intern_3
+    4300096: Station1
     9500000: //RootNode
   materials:
     importMaterials: 1
