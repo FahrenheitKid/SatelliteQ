@@ -126,7 +126,7 @@ public class SatelliteMovement : MonoBehaviour
         if (isOn)
         {
             //GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), SatelliteUI);
-            GUI.DrawTexture(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 50, 100, 100), SatelliteAim);
+            GUI.DrawTexture(new Rect(Screen.width / 2 - 10, Screen.height / 2 - 10, 20, 20), SatelliteAim);
         }
     }
 
