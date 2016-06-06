@@ -44,9 +44,25 @@ public class Movement : MonoBehaviour {
 
     SatelliteMovement SatMov;
     bool posUpdated = false;
+
+    AudioSource footsteps1;
+    AudioClip footsteps1_clip;
+    bool footsteps1_pressed = true;
     // Use this for initialization
+
+    void Awake()
+    {
+       
+
+    }
+
     void Start ()
     {
+
+        footsteps1_clip = Resources.Load<AudioClip>("Sounds/footsteps1");
+        float vol = 0.8f;
+        footsteps1 = AddAudio(footsteps1_clip, true, true, vol);
+
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         SatMov = GameObject.Find("TopViewCamera").GetComponent<SatelliteMovement>();
@@ -307,12 +323,24 @@ public class Movement : MonoBehaviour {
         //Walk
         if (translation.z != 0 && Input.GetKey(KeyCode.W))
         {
+            if(footsteps1_pressed)
+            {
+                footsteps1.Play();
+                footsteps1_pressed = false;
+
+            }
+          
             cameraControl("Walk");
             anim.SetBool("isWalking", true);
             speed = speedWalk;
         }
         else
         {
+            
+                footsteps1.Stop();
+                footsteps1_pressed = true;
+
+            
             anim.SetBool("isWalking", false);
         }
 
@@ -327,6 +355,20 @@ public class Movement : MonoBehaviour {
         {
             anim.SetBool("isRunning", false);
         }
+
+    }
+
+    public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float vol)
+    {
+
+        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
+
+        newAudio.clip = clip;
+        newAudio.loop = loop;
+        newAudio.playOnAwake = playAwake;
+        newAudio.volume = vol;
+
+        return newAudio;
 
     }
 

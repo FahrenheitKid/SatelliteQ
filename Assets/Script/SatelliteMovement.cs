@@ -37,10 +37,14 @@ public class SatelliteMovement : MonoBehaviour
     public Texture SatelliteUI;
     public Texture SatelliteAim;
 
+    public AudioSource source;
+    public bool justPressed = true;
+
     // Use this for initialization
     void Start()
     {
         SatelliteCamera = GetComponent<Camera>();
+        source = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player");
         pos.x = player.transform.localPosition.x;
         pos.y = player.transform.localPosition.y + 50;
@@ -57,6 +61,11 @@ public class SatelliteMovement : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
+                if (justPressed)
+                {
+                    justPressed = false;
+                    source.Play();
+                }
                 if (SatelliteCamera.fieldOfView > 20f)
                 {
                     SatelliteCamera.fieldOfView -= 10 * Time.deltaTime;
@@ -68,6 +77,9 @@ public class SatelliteMovement : MonoBehaviour
                 //Debug.DrawRay(transform.position, transform.forward * 100, Color.red);
                 if (Input.GetMouseButtonUp(0))
                 {
+                    source.Stop();
+                    justPressed = true;
+                    
                     RaycastHit hit;
                     Ray ray = SatelliteCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
                     //Ray ray = new Ray();
@@ -96,6 +108,13 @@ public class SatelliteMovement : MonoBehaviour
                 SatelliteCamera.fieldOfView += 30 * Time.deltaTime;
             }
             moveSatellite();
+           
+        }
+
+        if (isOn == false)
+        {
+            justPressed = true;
+            source.Stop();
         }
     }
     public void PositionUpdate(Vector3 newPos)
