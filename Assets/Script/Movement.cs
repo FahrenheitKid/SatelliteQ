@@ -49,6 +49,7 @@ public class Movement : MonoBehaviour {
     AudioClip footsteps1_clip;
     bool footsteps1_pressed = true;
     // Use this for initialization
+    GameObject menu;
 
     void Awake()
     {
@@ -58,6 +59,8 @@ public class Movement : MonoBehaviour {
 
     void Start ()
     {
+         menu = GameObject.Find("Canvas");
+        menu = menu.transform.FindChild("MainMenu").gameObject;
 
         footsteps1_clip = Resources.Load<AudioClip>("Sounds/footsteps1");
         float vol = 0.8f;
@@ -113,9 +116,19 @@ public class Movement : MonoBehaviour {
         cameraRotation.x = cameraRotatedX;
         FirstPerson.transform.localEulerAngles = cameraRotation;
 
-		//quando aperta esc, mostra o cursor e destrava
-		if (Input.GetKeyDown (KeyCode.Escape))
-			Cursor.lockState = wantedMode = CursorLockMode.None;
+        //quando aperta esc, mostra o cursor e destrava
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = wantedMode = CursorLockMode.None;
+            
+
+            if (menu.gameObject.activeSelf == true)
+                menu.gameObject.SetActive(false);
+            else
+                menu.gameObject.SetActive(true);
+
+
+        }
 				Cursor.visible = (CursorLockMode.Locked != wantedMode);
     }
 
