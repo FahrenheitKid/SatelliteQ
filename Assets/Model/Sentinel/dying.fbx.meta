@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: cbbcba108e9130045a8f59b2af148288
-timeCreated: 1463088957
+guid: e4d815ee8f0e600499b63f6c0678eec0
+timeCreated: 1465331623
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -137,7 +137,7 @@ ModelImporter:
     400126: mixamorig:Spine
     400128: mixamorig:Spine1
     400130: mixamorig:Spine2
-    7400000: sentinel_gunplay
+    7400000: mixamo.com
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -161,17 +161,17 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: sentinel_gunplay
+      name: mixamo.com
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 17
+      lastFrame: 130
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0

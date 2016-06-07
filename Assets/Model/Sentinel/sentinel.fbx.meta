@@ -351,6 +351,8 @@ ModelImporter:
     400340: transform79
     400342: transform80
     400344: transform81
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: polySurface1731
     4300002: polySurface236
     7400000: mixamo.com
@@ -368,10 +370,14 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nDefault bone length found in this file is different
+      form the one found in the source avatar:\n\t'mixamorig:LeftLeg' : position error
+      = 1.034202 mm\n\t'mixamorig:LeftFoot' : position error = 3.915082 mm\n\t'mixamorig:RightLeg'
+      : position error = 1.079193 mm\n\t'mixamorig:RightFoot' : position error = 3.749754
+      mm\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
