@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class MenuLogic : MonoBehaviour {
 
 	// Use this for initialization
@@ -17,5 +17,17 @@ public class MenuLogic : MonoBehaviour {
            
         }
 
+    }
+
+    public void startGame()
+    {
+
+        SceneManager.LoadScene("Clone2Test");
+    }
+
+    public void quitGame()
+    {
+        Application.Quit();
+        UnityEditor.EditorApplication.isPlaying = false;
     }
 }
