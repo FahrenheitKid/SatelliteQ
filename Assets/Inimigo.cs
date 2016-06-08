@@ -6,6 +6,7 @@ public class Inimigo : MonoBehaviour
     public Animator anim;
     public float patrolSpeed = 10f;
     public float chaseSpeed = 30f;
+    public float animationCurve;
     public Transform[] waypoints;
     int waypointIndex;
     enemyLOS LOS;
@@ -28,22 +29,31 @@ public class Inimigo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animationCurve = anim.GetFloat("deadCurve");
         if (LOS.playerSighted == true)
         {
+            Debug.Log("Should be shooting");
             Shoot();
         }
         if(LOS.lastSight != gameControl.ResetPosition && LOS.playerSighted == false)
         {
+            Debug.Log("Should be chasing");
             Chase(LOS.lastSight);
         }
         else if (LOS.playerSighted == false)
         {
             Patrol();
         }
+
+        if (animationCurve > 0.09f)
+        {
+            DestroyObject(this.gameObject);
+        }
     }
     void Shoot()
     {
         anim.SetBool("isShooting", true);
+        anim.SetBool("isRunning", false);
         nav.Stop();
         gun.Shoot();
     }
@@ -77,6 +87,12 @@ public class Inimigo : MonoBehaviour
       //  Debug.Log(waypointIndex);
         nav.destination = waypoints[waypointIndex].position;
         
+    }
+  public  void Die()
+    {
+            
+        anim.SetBool("dead", true);
+
     }
     
 }

@@ -30,7 +30,7 @@ public class laserScript : MonoBehaviour
 	void Update ()
     {
         current_time += Time.deltaTime;
-        Debug.Log(current_time);
+        //Debug.Log(current_time);
         //UpdateLine();
         if(current_time >= 0.7f && !burnCreated)
         {

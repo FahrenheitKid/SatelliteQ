@@ -81,10 +81,10 @@ public class SatelliteMovement : MonoBehaviour
                     justPressed = true;
                     
                     RaycastHit hit;
-                    Ray ray = SatelliteCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
-                    //Ray ray = new Ray();
-                    //ray.origin = transform.position;
-                    //ray.direction = transform.TransformDirection(Vector3.forward) * 100;
+                   // Ray ray = SatelliteCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+                    Ray ray = new Ray();
+                    ray.origin = transform.position;
+                    ray.direction = transform.TransformDirection(Vector3.forward) * 100;
                     Vector3 laser_position = transform.position;
 
                     if (Physics.Raycast(ray, out hit))
@@ -92,7 +92,8 @@ public class SatelliteMovement : MonoBehaviour
                         Debug.Log("Hit " + hit.collider.gameObject.name);
                         if (hit.collider.gameObject.tag == "Enemy")
                         {
-                            DestroyObject(hit.collider.gameObject);
+                           // DestroyObject(hit.collider.gameObject);
+                            hit.collider.gameObject.GetComponent<Inimigo>().Die();
                         }
                         laser_position.x = hit.point.x;
                         laser_position.y = transform.position.y;
