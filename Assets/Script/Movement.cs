@@ -47,9 +47,14 @@ public class Movement : MonoBehaviour {
 
     AudioSource footsteps1;
     AudioClip footsteps1_clip;
+
+    AudioSource footsteps_run1;
+    AudioClip footsteps_run1_clip;
     bool footsteps1_pressed = true;
+    bool footsteps_run1_pressed = true;
     // Use this for initialization
     GameObject menu;
+    bool isPaused = false;
 
     void Awake()
     {
@@ -63,8 +68,12 @@ public class Movement : MonoBehaviour {
         menu = menu.transform.FindChild("MainMenu").gameObject;
 
         footsteps1_clip = Resources.Load<AudioClip>("Sounds/footsteps1");
-        float vol = 0.8f;
+        float vol = 0.7f;
         footsteps1 = AddAudio(footsteps1_clip, true, true, vol);
+
+        footsteps_run1_clip = Resources.Load<AudioClip>("Sounds/footsteps_run1");
+        float vol1 = 0.9f;
+        footsteps_run1 = AddAudio(footsteps_run1_clip, true, true, vol1);
 
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
@@ -121,6 +130,10 @@ public class Movement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.lockState = wantedMode = CursorLockMode.None;
+
+            if (isPaused)
+                isPaused = false;
+            else isPaused = true;
             
 
             if (menu.gameObject.activeSelf == true)
@@ -131,6 +144,15 @@ public class Movement : MonoBehaviour {
 
         }
 				Cursor.visible = (CursorLockMode.Locked != wantedMode);
+
+        if(isPaused)
+        {
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+        }
     }
 
     void OnTriggerEnter(Collider obj)
@@ -339,6 +361,7 @@ public class Movement : MonoBehaviour {
         {
             if(footsteps1_pressed)
             {
+
                 footsteps1.Play();
                 footsteps1_pressed = false;
 
@@ -361,12 +384,23 @@ public class Movement : MonoBehaviour {
         //Run
         if (translation.z != 0 && Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
         {
+            if(footsteps_run1_pressed)
+            {
+                // footsteps1.clip = footsteps_run1_clip;
+                footsteps1.Pause();
+                footsteps_run1.Play();
+                footsteps_run1_pressed = false;
+
+             }
             cameraControl("Run");
             anim.SetBool("isRunning", true);
             speed = speedRun;
         }
         else
         {
+            footsteps_run1.Stop();
+            footsteps1.UnPause();
+            footsteps_run1_pressed = true;
             anim.SetBool("isRunning", false);
         }
 
@@ -377,6 +411,7 @@ public class Movement : MonoBehaviour {
 
         AudioSource newAudio = gameObject.AddComponent<AudioSource>();
 
+        newAudio.spatialBlend = 1.0f;
         newAudio.clip = clip;
         newAudio.loop = loop;
         newAudio.playOnAwake = playAwake;
