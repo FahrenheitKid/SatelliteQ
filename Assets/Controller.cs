@@ -16,7 +16,7 @@ public class Controller : MonoBehaviour {
         LastGlobalPlayerPos = ResetPosition;
 
         music_clip = Resources.Load<AudioClip>("Sounds/soundtrack1");
-        float vol = 0.65f;
+        float vol = 0.45f;
         music = AddAudio(music_clip, true, true, vol);
         music.Play();
 

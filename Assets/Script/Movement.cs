@@ -68,11 +68,11 @@ public class Movement : MonoBehaviour {
         menu = menu.transform.FindChild("MainMenu").gameObject;
 
         footsteps1_clip = Resources.Load<AudioClip>("Sounds/footsteps1");
-        float vol = 0.8f;
+        float vol = 0.7f;
         footsteps1 = AddAudio(footsteps1_clip, true, true, vol);
 
         footsteps_run1_clip = Resources.Load<AudioClip>("Sounds/footsteps_run1");
-        float vol1 = 0.8f;
+        float vol1 = 0.9f;
         footsteps_run1 = AddAudio(footsteps_run1_clip, true, true, vol1);
 
         anim = GetComponent<Animator>();
@@ -410,6 +410,7 @@ public class Movement : MonoBehaviour {
 
         AudioSource newAudio = gameObject.AddComponent<AudioSource>();
 
+        newAudio.spatialBlend = 1.0f;
         newAudio.clip = clip;
         newAudio.loop = loop;
         newAudio.playOnAwake = playAwake;
