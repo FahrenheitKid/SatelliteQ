@@ -86,6 +86,7 @@ public class Movement : MonoBehaviour {
         {
             rotation.y = Input.GetAxis("Mouse X") * mouseSpeed * Time.deltaTime;
             rotation.x = Input.GetAxis("Mouse Y") * mouseSpeed * Time.deltaTime;
+
         }
 
         translation.x = Input.GetAxis("Horizontal");
@@ -115,7 +116,7 @@ public class Movement : MonoBehaviour {
         cameraRotatedX = Mathf.Clamp(cameraRotatedX, -60, 60);
         cameraRotation.x = cameraRotatedX;
         FirstPerson.transform.localEulerAngles = cameraRotation;
-
+      //  TopView.transform.Rotate(0, rotation.y, 0, Space.World);
         //quando aperta esc, mostra o cursor e destrava
         if (Input.GetKeyDown(KeyCode.Escape))
         {

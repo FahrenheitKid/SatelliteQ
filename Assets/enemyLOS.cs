@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class enemyLOS : MonoBehaviour {
     //Angulo de campo de visão
     public float fovAngle = 110.0f;
+    public float meshResolution;
+    public MeshFilter viewMeshFilter;
+    Mesh viewMesh;
+    
     public bool playerSighted;
      //Ultima posição que o jogador foi visto
     public Vector3 lastSight;
@@ -16,6 +21,9 @@ public class enemyLOS : MonoBehaviour {
   
 	// Use this for initialization
 	void Start () {
+        viewMesh = new Mesh();
+        viewMesh.name = "View Mesh";
+        viewMeshFilter.mesh = viewMesh;
         lastSight.Set(1000, 1000, 1000);
         col = GetComponent<SphereCollider>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -26,6 +34,7 @@ public class enemyLOS : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        DrawFOV();
         if (playerSighted == true)
         {
 
@@ -37,7 +46,8 @@ public class enemyLOS : MonoBehaviour {
         }
 	
 	}
-    
+
+
     void OnTriggerStay(Collider other)
     {
         //Se objeto que entrou no campo de atuação do inimigo for o Player
@@ -78,5 +88,40 @@ public class enemyLOS : MonoBehaviour {
         {
             playerSighted = false;
         }
+    }
+
+    public Vector3 dirFromAngle(float angleDegrees)
+    {
+        return new Vector3(Mathf.Sin(angleDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleDegrees * Mathf.Deg2Rad)); //Polar Coordinates
+    }
+
+    void DrawFOV()
+    {
+        List<Vector3> points = new List<Vector3>();
+        int rayCount = Mathf.RoundToInt(fovAngle * meshResolution);
+        float stepAngleSize = fovAngle / rayCount;
+        for (int i = 0; i < rayCount; i++)
+        {
+            float angle = transform.eulerAngles.y - fovAngle / 2 + stepAngleSize * i;
+           // Debug.DrawLine(transform.position, transform.position+ dirFromAngle(angle) * col.radius, Color.red);
+            points.Add(transform.position + dirFromAngle(angle) * col.radius);
+        }
+        int vertexCount = points.Count + 1;
+        Vector3[] vertices = new Vector3[vertexCount];
+        int[] triangulos = new int[(vertexCount - 2) * 3];
+        vertices[0] = Vector3.zero;
+        for (int i = 0; i < vertexCount - 1;i++)
+        {
+            vertices[i + 1] = transform.InverseTransformPoint(points[i]);
+            if (i < vertexCount - 2)
+            {
+                triangulos[i * 3] = 0;
+                triangulos[i * 3 + 1] = i + 1;
+                triangulos[i * 3 + 2] = i + 2;
+            }
+        }
+            viewMesh.Clear();
+            viewMesh.vertices = vertices;
+            viewMesh.triangles = triangulos;
     }
 }
