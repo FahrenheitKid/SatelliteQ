@@ -129,7 +129,14 @@ public class Movement : MonoBehaviour {
         //quando aperta esc, mostra o cursor e destrava
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if(!Cursor.visible)
             Cursor.lockState = wantedMode = CursorLockMode.None;
+            else
+            {
+                Cursor.visible = false;
+		wantedMode = CursorLockMode.Locked;
+		Cursor.lockState = wantedMode;
+            }
 
             if (isPaused)
                 isPaused = false;

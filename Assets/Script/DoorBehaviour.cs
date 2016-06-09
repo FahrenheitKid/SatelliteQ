@@ -62,6 +62,9 @@ public class DoorBehaviour : MonoBehaviour {
                 {
                     transform.Rotate(new Vector3(0, 160, 0));
                 }
+
+                AudioSource audio = GetComponent<AudioSource>();
+                audio.Play();
             }
         }    
     }
