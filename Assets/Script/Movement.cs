@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class Movement : MonoBehaviour {
 
     Animator anim;
@@ -58,7 +58,9 @@ public class Movement : MonoBehaviour {
 
     void Awake()
     {
-       
+        Cursor.visible = false;
+        wantedMode = CursorLockMode.Locked;
+        Cursor.lockState = wantedMode;
 
     }
 
@@ -194,6 +196,16 @@ public class Movement : MonoBehaviour {
             targetDoorButton = obj;
             
 
+        }
+        if(obj.tag == "Portal")
+        {
+
+            if(SceneManager.GetActiveScene().name == "Room_01")
+                SceneManager.LoadScene("Room_03");
+            else if(SceneManager.GetActiveScene().name == "Room_03")
+            {
+                SceneManager.LoadScene("Room_01");
+            }
         }
     }
 

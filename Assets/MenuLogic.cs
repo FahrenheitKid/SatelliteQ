@@ -90,7 +90,7 @@ public class MenuLogic : MonoBehaviour {
     public void loadStage(string name)
     {
 
-        // SceneManager.LoadScene(name);
+         SceneManager.LoadScene(name);
     }
     public void quitGame()
     {
