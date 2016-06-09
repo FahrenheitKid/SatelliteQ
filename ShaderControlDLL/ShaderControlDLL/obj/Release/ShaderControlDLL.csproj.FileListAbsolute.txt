@@ -7,8 +7,6 @@ C:\Users\Kydrang\Desktop\Codes\ShaderControlDLL\ShaderControlDLL\obj\Release\Sha
 C:\Users\Kydrang\Desktop\Codes\ShaderControlDLL\ShaderControlDLL\obj\Release\ShaderControlDLL.csprojResolveAssemblyReference.cache
 C:\Users\Kydrang\Documents\SatelliteQ\ShaderControlDLL\ShaderControlDLL\bin\Release\ShaderControlDLL.dll
 C:\Users\Kydrang\Documents\SatelliteQ\ShaderControlDLL\ShaderControlDLL\bin\Release\ShaderControlDLL.pdb
-C:\Users\Kydrang\Documents\SatelliteQ\ShaderControlDLL\ShaderControlDLL\bin\Release\UnityEngine.dll
-C:\Users\Kydrang\Documents\SatelliteQ\ShaderControlDLL\ShaderControlDLL\bin\Release\UnityEngine.xml
 C:\Users\Kydrang\Documents\SatelliteQ\ShaderControlDLL\ShaderControlDLL\obj\Release\ShaderControlDLL.csprojResolveAssemblyReference.cache
 C:\Users\Kydrang\Documents\SatelliteQ\ShaderControlDLL\ShaderControlDLL\obj\Release\ShaderControlDLL.dll
 C:\Users\Kydrang\Documents\SatelliteQ\ShaderControlDLL\ShaderControlDLL\obj\Release\ShaderControlDLL.pdb

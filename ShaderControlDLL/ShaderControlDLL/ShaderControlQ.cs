@@ -14,10 +14,14 @@ namespace ShaderControlDLL
 
             foreach(GameObject objTag in obj)
             {
-                Renderer[] mat = objTag.GetComponentsInChildren<Renderer>();
-                foreach(Renderer objMat in mat)
+                Renderer[] rend = objTag.GetComponentsInChildren<Renderer>();
+                foreach(Renderer objRend in rend)
                 {
-                    objMat.material.shader = shader;
+                    Material[] mat = objRend.materials;
+                    foreach(Material objMat in mat)
+                    {
+                        objMat.shader = shader;
+                    }
                 }
             }
         }
