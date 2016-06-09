@@ -65,7 +65,7 @@ public class Movement : MonoBehaviour {
     void Start ()
     {
          menu = GameObject.Find("Canvas");
-        menu = menu.transform.FindChild("MainMenu").gameObject;
+        //menu = menu.transform.FindChild("MainMenu").gameObject;
 
         footsteps1_clip = Resources.Load<AudioClip>("Sounds/footsteps1");
         float vol = 0.7f;
@@ -142,12 +142,12 @@ public class Movement : MonoBehaviour {
                 isPaused = false;
             else isPaused = true;
             
-
+            /*
             if (menu.gameObject.activeSelf == true)
                 menu.gameObject.SetActive(false);
             else
                 menu.gameObject.SetActive(true);
-
+                */
 
         }
 				Cursor.visible = (CursorLockMode.Locked != wantedMode);
