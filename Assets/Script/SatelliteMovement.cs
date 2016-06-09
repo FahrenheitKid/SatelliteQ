@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SatelliteMovement : MonoBehaviour
 {
+    int laserCharges = 3;
     public GameObject player;
     private Camera SatelliteCamera;
     private Vector3 pos = Vector3.zero;
@@ -59,7 +60,7 @@ public class SatelliteMovement : MonoBehaviour
     {
         if (isOn)
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && laserCharges > 0)
             {
                 if (justPressed)
                 {
@@ -94,6 +95,7 @@ public class SatelliteMovement : MonoBehaviour
                         {
                            // DestroyObject(hit.collider.gameObject);
                             hit.collider.gameObject.GetComponent<Inimigo>().Die();
+                            laserCharges--; //Usa uma carga do Laser só quando mata o inimigo
                         }
                         laser_position.x = hit.point.x;
                         laser_position.y = transform.position.y;
