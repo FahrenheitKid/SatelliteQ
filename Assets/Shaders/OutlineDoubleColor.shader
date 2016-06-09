@@ -1,10 +1,10 @@
-Shader "Custom/Silhueta de Cor Dupla" 
+Shader "Custom/Outline Double Color" 
 {
-	Properties 
+	Properties
 	{
-		_Color ("Main Color", Color) = (.5,.5,.5,1)
-		_Outline ("Outline width", Range (0.0, 1.0)) = 0.1
-		_MainTex ("Base (RGB)", 2D) = "white" { }
+		_Color("Main Color", Color) = (.5,.5,.5,1)
+		_Outline("Outline Width", Range(0.0, 0.03)) = 0.005
+		_MainTex ("Base (RGB)", 2D) = "white" {}
 		_BumpMap ("Bumpmap", 2D) = "bump" {}
 		_Color1("First Color", Color) = (0.8, 0, 0, 0.5)
 		_Color2("Second Color", Color) = (0.8, 0.8, 0, 0.5)
@@ -14,7 +14,7 @@ CGINCLUDE
 #include "UnityCG.cginc"
  
 struct appdata 
-		{
+{
 	float4 vertex : POSITION;
 	float3 normal : NORMAL;
 };
@@ -89,5 +89,5 @@ ENDCG
 		ENDCG
 	}
  
-	Fallback "Outlined/Silhouetted Diffuse"
+	Fallback "Standard"
 }

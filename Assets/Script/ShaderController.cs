@@ -15,12 +15,22 @@ public class ShaderController : MonoBehaviour
     [System.Serializable]
     public class ControlQ
     {
+        public ControlMode controlMode;
+
         public string tag;
         public Shader ActivationShader;
         public Shader NormalShader;
-        public string param;
-        public Color color;
-        public ControlMode controlMode;
+        
+        public class Parameters
+        {
+            public string param;
+            public bool isColor;
+            public bool isFloat;
+            public Color color;
+            public float value;
+        }
+
+        public List<Parameters> parameters;
     }
 
     public KeyCode ActivationKey;
@@ -41,8 +51,8 @@ public class ShaderController : MonoBehaviour
             {
                 if (tagList[i].controlMode == ControlMode.ByTag)
                 {
-                    //controller.SwitchShaderByTag(tagList[i].tag, tagList[i].ActivationShader);
-                    controller.SwitchShaderByTagCustomParam(tagList[i].tag, tagList[i].ActivationShader, tagList[i].param, tagList[i].color);
+                    controller.SwitchShaderByTag(tagList[i].tag, tagList[i].ActivationShader);
+                    //controller.SwitchShaderByTagCustomParam(tagList[i].tag, tagList[i].ActivationShader, tagList[i].param, tagList[i].color);
                 }
             }
         }
