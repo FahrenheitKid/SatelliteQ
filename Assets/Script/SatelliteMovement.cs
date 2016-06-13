@@ -3,12 +3,14 @@ using System.Collections;
 
 public class SatelliteMovement : MonoBehaviour
 {
-    int laserCharges = 3;
     public GameObject player;
     private Camera SatelliteCamera;
     private Vector3 pos = Vector3.zero;
     private Vector3 startpos = Vector3.zero;
     public GameObject laserPrefab;
+    public int laserCharges = 3;
+    public float laserChargesCooldown = 10;
+    private float laserChargesTimer = 0;
     private float speed = 2.0f;
     private float zoomSpeed = 2.0f;
     float maximumZoom = 2.0f;
@@ -36,6 +38,11 @@ public class SatelliteMovement : MonoBehaviour
     public bool isOn = false;
 
     public Texture SatelliteUI;
+    public Texture SatelliteLightningBolt;
+    public Texture SatelliteLaserChargesIcon;
+    public Texture SatelliteEnergyBar;
+    private float SatelliteEnergyBarProgress = 0;
+    private float SatelliteCooldownProgress = 0;
     public Texture SatelliteAim;
 
     public AudioSource source;
@@ -60,7 +67,7 @@ public class SatelliteMovement : MonoBehaviour
     {
         if (isOn)
         {
-            if (Input.GetMouseButton(0) && laserCharges > 0)
+            if (Input.GetMouseButton(0) && laserCharges > 0 && laserChargesTimer >= laserChargesCooldown)
             {
                 if (justPressed)
                 {
@@ -69,8 +76,18 @@ public class SatelliteMovement : MonoBehaviour
                 }
                 if (SatelliteCamera.fieldOfView > 20f)
                 {
-                    SatelliteCamera.fieldOfView -= 10 * Time.deltaTime;
+                    SatelliteCamera.fieldOfView -= 20 * Time.deltaTime;
+                    //increase size of bar when charging
+                    if (SatelliteEnergyBarProgress <= SatelliteEnergyBar.width)
+                    {
+                        SatelliteEnergyBarProgress += (SatelliteEnergyBar.width / 2) * Time.deltaTime;
+                    }
+                    if (SatelliteEnergyBarProgress > SatelliteEnergyBar.width)
+                    {
+                        SatelliteEnergyBarProgress = SatelliteEnergyBar.width;
+                    }
                 }
+                Debug.Log(SatelliteEnergyBarProgress);
             }
 
             if (SatelliteCamera.fieldOfView <= 20f)
@@ -96,6 +113,7 @@ public class SatelliteMovement : MonoBehaviour
                            // DestroyObject(hit.collider.gameObject);
                             hit.collider.gameObject.GetComponent<Inimigo>().Die();
                             laserCharges--; //Usa uma carga do Laser só quando mata o inimigo
+                            laserChargesTimer = 0;
                         }
                         laser_position.x = hit.point.x;
                         laser_position.y = transform.position.y;
@@ -109,8 +127,14 @@ public class SatelliteMovement : MonoBehaviour
             if (SatelliteCamera.fieldOfView <= currentFOV && !Input.GetMouseButton(0))
             {
                 SatelliteCamera.fieldOfView += 30 * Time.deltaTime;
+                SatelliteEnergyBarProgress -= SatelliteEnergyBar.width * Time.deltaTime;
+                if (SatelliteEnergyBarProgress < 0)
+                {
+                    SatelliteEnergyBarProgress = 0;
+                }
             }
-            moveSatellite();
+            //decrease size of bar when not charging
+                moveSatellite();
            
         }
 
@@ -145,9 +169,27 @@ public class SatelliteMovement : MonoBehaviour
 
     void OnGUI()
     {
+        if(laserChargesTimer < laserChargesCooldown)
+        {
+            laserChargesTimer += Time.deltaTime * 0.5f;
+            SatelliteCooldownProgress = (230/laserChargesCooldown) * laserChargesTimer;
+        }
+
+        Debug.Log(laserChargesTimer);
+
         if (isOn)
         {
-            //GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), SatelliteUI);
+            GUI.DrawTexture(new Rect(Screen.width / 2 - SatelliteUI.width / 2, Screen.height - 50, SatelliteUI.width, SatelliteUI.height), SatelliteUI);
+            //barra de cooldown para próximo tiro
+            GUI.DrawTexture(new Rect(Screen.width / 2 - SatelliteUI.width / 2 + 10, Screen.height - 38, SatelliteCooldownProgress, SatelliteEnergyBar.height), SatelliteEnergyBar);
+            GUI.DrawTexture(new Rect(Screen.width / 2 - SatelliteUI.width / 2 + 117.725f, Screen.height - 33, SatelliteLightningBolt.width, SatelliteLightningBolt.height), SatelliteLightningBolt);
+            //barra carregando tiro
+            GUI.DrawTexture(new Rect(Screen.width / 2 - SatelliteUI.width / 2 + 407.6f, Screen.height - 38, SatelliteEnergyBarProgress, SatelliteEnergyBar.height), SatelliteEnergyBar);
+            //laser charges
+            for(int i = 0; i < laserCharges; i++)
+            {
+                GUI.DrawTexture(new Rect(Screen.width / 2 - SatelliteUI.width / 2 + 890 + (i * SatelliteLaserChargesIcon.width) , Screen.height - 40, SatelliteLaserChargesIcon.width, SatelliteLaserChargesIcon.height), SatelliteLaserChargesIcon);
+            }
             GUI.DrawTexture(new Rect(Screen.width / 2 - 10, Screen.height / 2 - 10, 20, 20), SatelliteAim);
         }
     }
