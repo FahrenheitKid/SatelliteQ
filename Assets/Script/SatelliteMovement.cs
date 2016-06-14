@@ -175,7 +175,7 @@ public class SatelliteMovement : MonoBehaviour
             SatelliteCooldownProgress = (230/laserChargesCooldown) * laserChargesTimer;
         }
 
-        Debug.Log(laserChargesTimer);
+
 
         if (isOn)
         {

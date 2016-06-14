@@ -28,7 +28,7 @@ public class Inimigo : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        gun = GetComponent<Weapon>();
+        gun = GetComponentInChildren<Weapon>();
         LOS = GetComponent<enemyLOS>();
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
@@ -69,12 +69,10 @@ public class Inimigo : MonoBehaviour
         animationCurve = anim.GetFloat("deadCurve");
         if (LOS.playerSighted == true)
         {
-            Debug.Log("Should be shooting");
             Shoot();
         }
         if(LOS.lastSight != gameControl.ResetPosition && LOS.playerSighted == false)
         {
-            Debug.Log("Should be chasing");
             Chase(LOS.lastSight);
         }
         else if (LOS.playerSighted == false)

@@ -16,17 +16,17 @@ public class Weapon : MonoBehaviour {
     Transform player;
     Controller hp;
     AudioSource audio;
-    Transform finger;
+    Transform aim;
 	// Use this for initialization
 	void Start () 
     {
-        finger = transform.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandIndex1/mixamorig:RightHandIndex2/mixamorig:RightHandIndex3/mixamorig:RightHandIndex4");
-        shotLine = GetComponentInChildren<LineRenderer>();
+        aim = transform.Find("aim");
+        shotLine = GetComponent<LineRenderer>();
         shotLight = GetComponentInChildren<Light>();
-        col = GetComponent<SphereCollider>();
+        col = transform.root.GetComponent<SphereCollider>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         hp = GameObject.FindGameObjectWithTag("GameController").GetComponent<Controller>();
-        anim = GetComponent<Animator>();
+        anim = transform.root.GetComponent<Animator>();
         shotLine.enabled = false;
         shotLight.intensity = 0f;
         audio = GetComponent<AudioSource>();
@@ -53,7 +53,7 @@ public class Weapon : MonoBehaviour {
         {
             shooting = true;
             SFX();
-            hp.takeDamage(damage);
+          //  hp.takeDamage(damage); // Comentado só para testes, remover depois.
         }
     }
    void SFX()
@@ -62,7 +62,7 @@ public class Weapon : MonoBehaviour {
        {
            audio.Play();
        }
-      shotLine.SetPosition(0, finger.position);   
+      shotLine.SetPosition(0, aim.position);   
       shotLine.SetPosition(1, player.position + Vector3.up * 10f);
       shotLine.enabled = true;
       shotLight.intensity = flash;
