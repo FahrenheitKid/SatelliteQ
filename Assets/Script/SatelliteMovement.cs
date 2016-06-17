@@ -3,6 +3,12 @@ using System.Collections;
 
 public class SatelliteMovement : MonoBehaviour
 {
+    //Glitch Control
+    Kino.AnalogGlitch analogGlitch;
+    Kino.DigitalGlitch digitalGlitch;
+    float timer;
+    float effectsValue;
+    //
     public GameObject player;
     private Camera SatelliteCamera;
     private Vector3 pos = Vector3.zero;
@@ -61,12 +67,31 @@ public class SatelliteMovement : MonoBehaviour
         transform.localPosition = pos;
         startpos = pos;
         //  camera = GameObject.Find("TopViewCamera").camera;
-    }
 
+        analogGlitch = GetComponent<Kino.AnalogGlitch>();
+        digitalGlitch = GetComponent<Kino.DigitalGlitch>();
+        timer = 0;
+        effectsValue = 0;
+        
+    }
+    
     void Update()
     {
+        analogGlitch.scanLineJitter = effectsValue;
+        digitalGlitch.intensity = effectsValue;
         if (isOn)
         {
+            timer += Time.deltaTime;
+            if (timer < 0.2f)
+            {
+                effectsValue = 1.0f;
+               
+            }
+            if (timer > 0.2f & effectsValue > 0.2f)
+            {
+                effectsValue -= 0.2f;
+
+            }
             if (Input.GetMouseButton(0) && laserCharges > 0 && laserChargesTimer >= laserChargesCooldown)
             {
                 if (justPressed)
@@ -142,6 +167,9 @@ public class SatelliteMovement : MonoBehaviour
         {
             justPressed = true;
             source.Stop();
+            effectsValue = 0;
+            timer = 0;
+
         }
     }
     public void PositionUpdate(Vector3 newPos)
