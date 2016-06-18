@@ -81,17 +81,7 @@ public class SatelliteMovement : MonoBehaviour
         digitalGlitch.intensity = effectsValue;
         if (isOn)
         {
-            timer += Time.deltaTime;
-            if (timer < 0.2f)
-            {
-                effectsValue = 1.0f;
-               
-            }
-            if (timer > 0.2f & effectsValue > 0.2f)
-            {
-                effectsValue -= 0.2f;
-
-            }
+           
             if (Input.GetMouseButton(0) && laserCharges > 0 && laserChargesTimer >= laserChargesCooldown)
             {
                 if (justPressed)
@@ -162,6 +152,18 @@ public class SatelliteMovement : MonoBehaviour
                 moveSatellite();
            
         }
+        //Efeito da camera quando liga o satélite
+        timer += Time.deltaTime;
+        if (timer < 0.2f)
+        {
+            effectsValue = 1.0f;
+
+        }
+        if (timer > 0.2f & effectsValue > 0.2f)
+        {
+            effectsValue -= 0.2f;
+
+        }
 
         if (isOn == false)
         {
@@ -184,15 +186,25 @@ public class SatelliteMovement : MonoBehaviour
     void moveSatellite()
     {
         //Debug.Log(speedratio);
-        if (speedratio > 0.07f)
+      //  if (speedratio > 0.07f)
         {
             float h = (horizontalSpeed * Input.GetAxis("Mouse X")) * speedratio;
             float v = (verticalSpeed * Input.GetAxis("Mouse Y")) * speedratio;
             transform.Translate(h, 0, v, Space.World);
             Vector3 temp = transform.localPosition;
             float actualDistance = Vector3.Distance(transform.position, player.transform.position);
+            print(actualDistance/initialDistanceFromPlayer);
             speedratio = 0.5f * ((initialDistanceFromPlayer / actualDistance) / 5);
+            if (actualDistance / initialDistanceFromPlayer > 1.5f)
+            {
+                effectsValue = actualDistance / initialDistanceFromPlayer - 1.5f;
+            }
+            else
+            {
+                effectsValue = 0;
+            }
         }
+
     }
 
     void OnGUI()
