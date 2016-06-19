@@ -24,7 +24,6 @@ public class Inimigo : MonoBehaviour
     bool isPatroling = true;
     bool isChasing = false;
 
-
     // Use this for initialization
     void Start()
     {
@@ -58,8 +57,6 @@ public class Inimigo : MonoBehaviour
         {
             footsteps.Pause();
             footsteps_run.Pause();
-
-
         }
         else
         {
@@ -70,6 +67,7 @@ public class Inimigo : MonoBehaviour
         if (LOS.playerSighted == true)
         {
             Shoot();
+            transform.LookAt(LOS.lastSight);
         }
         if(LOS.lastSight != gameControl.ResetPosition && LOS.playerSighted == false)
         {

@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class enemyLOS : MonoBehaviour {
+public class enemyLOS : MonoBehaviour
+{
     //Angulo de campo de visão
     public float fovAngle = 110.0f;
     public float meshResolution;
@@ -12,13 +13,14 @@ public class enemyLOS : MonoBehaviour {
     public bool playerSighted;
      //Ultima posição que o jogador foi visto
     public Vector3 lastSight;
-
+    public float enemyShootAngle = 0;
     
     //NavMeshAgent nav;
     Controller gameControl;
     SphereCollider col;
     GameObject player;
-  
+
+
 	// Use this for initialization
 	void Start () {
         viewMesh = new Mesh();
@@ -32,9 +34,16 @@ public class enemyLOS : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-        DrawFOV();
+	void Update ()
+    {
+        if (Input.GetKey(KeyCode.Q))
+        {
+            DrawFOV();
+        }
+        else
+        {
+            viewMesh.Clear();
+        }
         if (playerSighted == true)
         {
 
@@ -66,6 +75,7 @@ public class enemyLOS : MonoBehaviour {
                 ray.origin = transform.position + transform.up;
                 ray.direction = direction.normalized;
                 Debug.DrawRay(transform.position + transform.up * 2, direction.normalized*col.radius, Color.green);
+                enemyShootAngle = Vector3.Angle(transform.position + transform.up * 2, direction.normalized * col.radius);
                 //Se o raycast acertar algo
                 if (Physics.Raycast(ray,out hit))
                 {
