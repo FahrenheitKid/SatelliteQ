@@ -53,7 +53,8 @@ public class SatelliteMovement : MonoBehaviour
 
     public AudioSource source;
     public bool justPressed = true;
-
+    bool gotTempPos;
+    Vector3 tempStarterPos;
     // Use this for initialization
     void Start()
     {
@@ -72,16 +73,16 @@ public class SatelliteMovement : MonoBehaviour
         digitalGlitch = GetComponent<Kino.DigitalGlitch>();
         timer = 0;
         effectsValue = 0;
-        
+
     }
-    
+
     void Update()
     {
         analogGlitch.scanLineJitter = effectsValue;
         digitalGlitch.intensity = effectsValue;
         if (isOn)
         {
-           
+
             if (Input.GetMouseButton(0) && laserCharges > 0 && laserChargesTimer >= laserChargesCooldown)
             {
                 if (justPressed)
@@ -112,9 +113,9 @@ public class SatelliteMovement : MonoBehaviour
                 {
                     source.Stop();
                     justPressed = true;
-                    
+
                     RaycastHit hit;
-                   // Ray ray = SatelliteCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+                    // Ray ray = SatelliteCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
                     Ray ray = new Ray();
                     ray.origin = transform.position;
                     ray.direction = transform.TransformDirection(Vector3.forward) * 100;
@@ -125,7 +126,7 @@ public class SatelliteMovement : MonoBehaviour
                         Debug.Log("Hit " + hit.collider.gameObject.name);
                         if (hit.collider.gameObject.tag == "Enemy")
                         {
-                           // DestroyObject(hit.collider.gameObject);
+                            // DestroyObject(hit.collider.gameObject);
                             hit.collider.gameObject.GetComponent<Inimigo>().Die();
                             laserCharges--; //Usa uma carga do Laser só quando mata o inimigo
                             laserChargesTimer = 0;
@@ -149,8 +150,8 @@ public class SatelliteMovement : MonoBehaviour
                 }
             }
             //decrease size of bar when not charging
-                moveSatellite();
-           
+            moveSatellite();
+
         }
         //Efeito da camera quando liga o satélite
         timer += Time.deltaTime;
@@ -164,14 +165,14 @@ public class SatelliteMovement : MonoBehaviour
             effectsValue -= 0.2f;
 
         }
-
+        //Fim do efeito da camera
         if (isOn == false)
         {
             justPressed = true;
             source.Stop();
             effectsValue = 0;
             timer = 0;
-
+            gotTempPos = false;
         }
     }
     public void PositionUpdate(Vector3 newPos)
@@ -186,33 +187,38 @@ public class SatelliteMovement : MonoBehaviour
     void moveSatellite()
     {
         //Debug.Log(speedratio);
-      //  if (speedratio > 0.07f)
+        //  if (speedratio > 0.07f)
+
+        if (gotTempPos == false)
         {
-            float h = (horizontalSpeed * Input.GetAxis("Mouse X")) * speedratio;
-            float v = (verticalSpeed * Input.GetAxis("Mouse Y")) * speedratio;
-            transform.Translate(h, 0, v, Space.World);
-            Vector3 temp = transform.localPosition;
-            float actualDistance = Vector3.Distance(transform.position, player.transform.position);
-            print(actualDistance/initialDistanceFromPlayer);
-            speedratio = 0.5f * ((initialDistanceFromPlayer / actualDistance) / 5);
-            if (actualDistance / initialDistanceFromPlayer > 1.5f)
-            {
-                effectsValue = actualDistance / initialDistanceFromPlayer - 1.5f;
-            }
-            else
-            {
-                effectsValue = 0;
-            }
+            tempStarterPos = transform.position;
+            gotTempPos = true;
         }
+        float h = (horizontalSpeed * Input.GetAxis("Mouse X")) * speedratio;
+        float v = (verticalSpeed * Input.GetAxis("Mouse Y")) * speedratio;
+        transform.Translate(h, 0, v, Space.World);
+        Vector3 temp = transform.localPosition;
+        float actualDistance = Vector3.Distance(transform.position, tempStarterPos);
+        print(actualDistance);
+        speedratio = 0.5f;// *((initialDistanceFromPlayer / actualDistance) / 5);
+        if (actualDistance > 50.0f)
+        {
+            effectsValue = actualDistance / 150.0f;
+        }
+        else
+        {
+            effectsValue = 0;
+        }
+
 
     }
 
     void OnGUI()
     {
-        if(laserChargesTimer < laserChargesCooldown)
+        if (laserChargesTimer < laserChargesCooldown)
         {
             laserChargesTimer += Time.deltaTime * 0.5f;
-            SatelliteCooldownProgress = (230/laserChargesCooldown) * laserChargesTimer;
+            SatelliteCooldownProgress = (230 / laserChargesCooldown) * laserChargesTimer;
         }
 
 
@@ -226,9 +232,9 @@ public class SatelliteMovement : MonoBehaviour
             //barra carregando tiro
             GUI.DrawTexture(new Rect(Screen.width / 2 - SatelliteUI.width / 2 + 407.6f, Screen.height - 38, SatelliteEnergyBarProgress, SatelliteEnergyBar.height), SatelliteEnergyBar);
             //laser charges
-            for(int i = 0; i < laserCharges; i++)
+            for (int i = 0; i < laserCharges; i++)
             {
-                GUI.DrawTexture(new Rect(Screen.width / 2 - SatelliteUI.width / 2 + 890 + (i * SatelliteLaserChargesIcon.width) , Screen.height - 40, SatelliteLaserChargesIcon.width, SatelliteLaserChargesIcon.height), SatelliteLaserChargesIcon);
+                GUI.DrawTexture(new Rect(Screen.width / 2 - SatelliteUI.width / 2 + 890 + (i * SatelliteLaserChargesIcon.width), Screen.height - 40, SatelliteLaserChargesIcon.width, SatelliteLaserChargesIcon.height), SatelliteLaserChargesIcon);
             }
             GUI.DrawTexture(new Rect(Screen.width / 2 - 10, Screen.height / 2 - 10, 20, 20), SatelliteAim);
         }
