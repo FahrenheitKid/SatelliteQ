@@ -9,7 +9,11 @@ public class Inimigo : MonoBehaviour
     public float animationCurve;
     public Transform[] waypoints;
     int waypointIndex;
+    SphereCollider sphereCollider;
+    float initialColliderRadius;
     enemyLOS LOS;
+    float LOSsizeIncrement = 70.0f;
+    float initialLOS;
     NavMeshAgent nav;
     Weapon gun;
     Controller gameControl;
@@ -31,6 +35,8 @@ public class Inimigo : MonoBehaviour
         LOS = GetComponent<enemyLOS>();
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        sphereCollider = GetComponent<SphereCollider>();
+        initialColliderRadius = sphereCollider.radius;
         waypointIndex = 0;
         gameControl = GameObject.FindGameObjectWithTag("GameController").GetComponent<Controller>();
 
@@ -46,7 +52,7 @@ public class Inimigo : MonoBehaviour
         footsteps_run.maxDistance = 150;
 
         idleTimer = 0;
-
+        initialLOS = LOS.fovAngle;
 
 
     }
@@ -54,6 +60,7 @@ public class Inimigo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         animationCurve = anim.GetFloat("deadCurve");
       
 
@@ -71,7 +78,7 @@ public class Inimigo : MonoBehaviour
         if (LOS.playerSighted == true)
         {
             Shoot();
-            transform.LookAt(LOS.lastSight);
+
         }
         if(LOS.lastSight != gameControl.ResetPosition && LOS.playerSighted == false)
         {
@@ -133,14 +140,20 @@ public class Inimigo : MonoBehaviour
     }
     void Shoot()
     {
+        LOS.fovAngle = initialLOS;
+        sphereCollider.radius = initialColliderRadius * 2; //Aumenta o campo de visão do inimigo
         isChasing = false;
+        anim.SetBool("idle", false);
         anim.SetBool("isShooting", true);
         anim.SetBool("isRunning", false);
         nav.Stop();
+        transform.LookAt(LOS.lastSight);
         gun.Shoot();
     }
     void Chase(Vector3 Destination)
     {
+        LOS.fovAngle = initialLOS;
+        sphereCollider.radius = initialColliderRadius * 2; //Aumenta o campo de visão do inimigo
         isPatroling = false;
         isChasing = true;
         nav.Resume();
@@ -156,6 +169,7 @@ public class Inimigo : MonoBehaviour
     }
     void Patrol()
     {
+        LOS.fovAngle = initialLOS;
         isPatroling = true;
         isChasing = false;
         nav.Resume();
@@ -185,11 +199,13 @@ public class Inimigo : MonoBehaviour
 
     void idle()
   {
+      LOS.fovAngle = initialLOS + LOSsizeIncrement; // Aumenta o angulo de visão do inimigo (olhando para os lados)
       idleTimer += Time.deltaTime;
       anim.SetBool("isShooting", false);
       anim.SetBool("isRunning", false);
       anim.SetBool("idle", true);
       nav.Stop();
+      footsteps.Stop();
          
   }
 

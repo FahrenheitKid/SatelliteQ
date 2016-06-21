@@ -36,14 +36,15 @@ public class enemyLOS : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKey(KeyCode.Q))
-        {
-            DrawFOV();
-        }
-        else
-        {
-            viewMesh.Clear();
-        }
+        //if (Input.GetKey(KeyCode.Q))
+        //{
+        //    DrawFOV();
+        //}
+        //else
+        //{
+        //    viewMesh.Clear();
+        //}
+        DrawFOV();
         if (playerSighted == true)
         {
 
@@ -86,6 +87,7 @@ public class enemyLOS : MonoBehaviour
                         //Atualiza a ultima posição que o jogador foi visto
                         lastSight = player.transform.position;
                         gameControl.LastGlobalPlayerPos = player.transform.position;
+                        Debug.DrawRay(transform.position + transform.up * 2, direction.normalized * col.radius, Color.red);
                     }
                 }
             }
