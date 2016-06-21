@@ -23,7 +23,7 @@ public class Inimigo : MonoBehaviour
     bool enteredRun = true;
     bool isPatroling = true;
     bool isChasing = false;
-
+    float idleTimer;
     // Use this for initialization
     void Start()
     {
@@ -45,6 +45,8 @@ public class Inimigo : MonoBehaviour
         footsteps.maxDistance = 150;
         footsteps_run.maxDistance = 150;
 
+        idleTimer = 0;
+
 
 
     }
@@ -52,6 +54,8 @@ public class Inimigo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animationCurve = anim.GetFloat("deadCurve");
+      
 
         if(Time.timeScale == 0)
         {
@@ -63,7 +67,7 @@ public class Inimigo : MonoBehaviour
             footsteps.UnPause();
             footsteps_run.UnPause();
         }
-        animationCurve = anim.GetFloat("deadCurve");
+     
         if (LOS.playerSighted == true)
         {
             Shoot();
@@ -72,12 +76,19 @@ public class Inimigo : MonoBehaviour
         if(LOS.lastSight != gameControl.ResetPosition && LOS.playerSighted == false)
         {
             Chase(LOS.lastSight);
+            idleTimer = 0;
         }
         else if (LOS.playerSighted == false)
         {
-            
-            Patrol();
-           
+            if (idleTimer < 3.4f)
+            {
+                idle();
+            }
+            else
+            {
+                Patrol();
+            }
+           // Patrol();
         }
 
         if (animationCurve > 0.09f)
@@ -149,6 +160,7 @@ public class Inimigo : MonoBehaviour
         isChasing = false;
         nav.Resume();
         nav.speed = patrolSpeed;
+        anim.SetBool("idle", false);
         anim.SetBool("isShooting", false);
         anim.SetBool("isRunning", false);
         if (nav.remainingDistance < nav.stoppingDistance)
@@ -168,8 +180,18 @@ public class Inimigo : MonoBehaviour
         isPatroling = false;
         isChasing = false;
         anim.SetBool("dead", true);
-
+        nav.Stop();
     }
+
+    void idle()
+  {
+      idleTimer += Time.deltaTime;
+      anim.SetBool("isShooting", false);
+      anim.SetBool("isRunning", false);
+      anim.SetBool("idle", true);
+      nav.Stop();
+         
+  }
 
     public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float vol)
     {
