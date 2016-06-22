@@ -87,6 +87,7 @@ public class SatelliteMovement : MonoBehaviour
             {
                 if (justPressed)
                 {
+                    analogGlitch.colorDrift = 0.5f;
                     justPressed = false;
                     source.Play();
                 }
@@ -105,7 +106,10 @@ public class SatelliteMovement : MonoBehaviour
                 }
               //  Debug.Log(SatelliteEnergyBarProgress);
             }
-
+            if (SatelliteCamera.fieldOfView < 50)
+            {
+                analogGlitch.colorDrift = 0;
+            }
             if (SatelliteCamera.fieldOfView <= 20f)
             {
                 //Debug.DrawRay(transform.position, transform.forward * 100, Color.red);

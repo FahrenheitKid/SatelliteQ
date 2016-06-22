@@ -25,13 +25,13 @@ public class Movement : MonoBehaviour {
     private Vector3 rotation = Vector3.zero;
 
     //different camera position to animations
-    private Vector3 idleCameraPos = new Vector3(0, 10f, 4.0f);
-    private Vector3 crouchCameraPos = new Vector3(0, 6, 5);
-    private Vector3 walkCameraPos = new Vector3(0, 10, 3.5f);
-    private Vector3 runCameraPos = new Vector3(0, 11.5f, 2.5f);
+    //private Vector3 idleCameraPos = new Vector3(0, 10f, 4.0f);
+    //private Vector3 crouchCameraPos = new Vector3(0, 6, 5);
+    //private Vector3 walkCameraPos = new Vector3(0, 10, 3.5f);
+    //private Vector3 runCameraPos = new Vector3(0, 11.5f, 2.5f);
 
-    private Vector3 crouchCapsuleCenter = new Vector3(0, 3.5f, 0);
-    private Vector3 capsuleCenter = new Vector3(0, 6.25f, 0);
+    //private Vector3 crouchCapsuleCenter = new Vector3(0, 3.5f, 0);
+    //private Vector3 capsuleCenter = new Vector3(0, 6.25f, 0);
     private bool onDuct = false;
 
     public Font razerFont;
@@ -81,7 +81,7 @@ public class Movement : MonoBehaviour {
         controller = GetComponent<CharacterController>();
         SatMov = GameObject.Find("TopViewCamera").GetComponent<SatelliteMovement>();
         FirstPerson.enabled = true;
-        FirstPerson.transform.localPosition = idleCameraPos;
+     //   FirstPerson.transform.localPosition = idleCameraPos;
         TopView.enabled = false;
 
 		// esconde e tranca inicialmente
@@ -253,21 +253,21 @@ public class Movement : MonoBehaviour {
 
     void cameraControl(string key)
     {
-        switch (key)
-        {
-            case "Crouch":
-                FirstPerson.transform.localPosition = crouchCameraPos;
-                break;
-            case "Walk":
-                FirstPerson.transform.localPosition = walkCameraPos;
-                break;
-            case "Run":
-                FirstPerson.transform.localPosition = runCameraPos;
-                break;
-            case "Idle":
-                FirstPerson.transform.localPosition = idleCameraPos;
-                break;
-        }
+        //switch (key)
+        //{
+        //    case "Crouch":
+        //        FirstPerson.transform.localPosition = crouchCameraPos;
+        //        break;
+        //    case "Walk":
+        //        FirstPerson.transform.localPosition = walkCameraPos;
+        //        break;
+        //    case "Run":
+        //        FirstPerson.transform.localPosition = runCameraPos;
+        //        break;
+        //    case "Idle":
+        //        FirstPerson.transform.localPosition = idleCameraPos;
+        //        break;
+        //}
     }
 
     //Set Animation Flags
@@ -340,7 +340,7 @@ public class Movement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             controller.height = 7;
-            controller.center = crouchCapsuleCenter;
+            //controller.center = crouchCapsuleCenter;
             cameraControl("Crouch");
             anim.SetBool("isCrouching", true);
             anim.SetBool("isCrouch", true);
@@ -348,7 +348,7 @@ public class Movement : MonoBehaviour {
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             controller.height = 12.5f;
-            controller.center = capsuleCenter;
+            //controller.center = capsuleCenter;
             cameraControl("Idle");
             anim.SetBool("isCrouchWalking", false);
             anim.SetBool("isCrouching", false);
@@ -463,7 +463,7 @@ public class Movement : MonoBehaviour {
 
             //capsule player
 			controller.height = 7;
-			controller.center = crouchCapsuleCenter;
+            //controller.center = crouchCapsuleCenter;
 			anim.SetBool("isCrouching", true);
 			anim.SetBool("isCrouch", true);
         }
@@ -478,7 +478,7 @@ public class Movement : MonoBehaviour {
 
             //capsule player
             controller.height = 12.5f;
-			controller.center = capsuleCenter;
+            //controller.center = capsuleCenter;
 			anim.SetBool("isCrouchWalking", false);
 			anim.SetBool("isCrouching", false);
 			anim.SetBool("isCrouch", false);

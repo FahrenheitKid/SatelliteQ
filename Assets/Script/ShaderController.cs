@@ -34,6 +34,7 @@ public class ShaderController : MonoBehaviour
     }
 
     public KeyCode ActivationKey;
+    public KeyCode CancelKey;
     public List<ControlQ> tagList;
     ShaderControlQ controller = new ShaderControlQ();
 
@@ -45,7 +46,7 @@ public class ShaderController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKeyDown(ActivationKey))
+        if (Input.GetKey(ActivationKey) && !Input.GetKey(CancelKey))
         {
             for (int i = 0; i < tagList.Count; i++)
             {
@@ -57,7 +58,7 @@ public class ShaderController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(ActivationKey))
+        if (Input.GetKeyUp(ActivationKey) || Input.GetKey(CancelKey))
         {
             for (int i = 0; i < tagList.Count; i++)
             {
