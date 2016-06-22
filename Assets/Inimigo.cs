@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+ 
 public class Inimigo : MonoBehaviour
 {
     public Animator anim;
@@ -28,6 +29,9 @@ public class Inimigo : MonoBehaviour
     bool isPatroling = true;
     bool isChasing = false;
     float idleTimer;
+
+    float disintegrationAmount = 0;
+    Material[] materials;
     // Use this for initialization
     void Start()
     {
@@ -54,7 +58,7 @@ public class Inimigo : MonoBehaviour
         idleTimer = 0;
         initialLOS = LOS.fovAngle;
 
-
+        materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
     }
 
     // Update is called once per frame
@@ -97,11 +101,22 @@ public class Inimigo : MonoBehaviour
             }
            // Patrol();
         }
-
+        //Se a animação estiver acabando
         if (animationCurve > 0.09f)
         {
             DestroyObject(this.gameObject);
         }
+        //Enquanto a animação não acaba desintegra o inimigo
+        else
+        {
+            for (int i = 0; i < materials.Length; i++)
+            {
+                print(materials[i].name);
+                materials[i].SetFloat("_SliceAmount", animationCurve*10);
+                print(i);
+            }
+        }
+
 
         if (isPatroling)
         {
@@ -189,12 +204,17 @@ public class Inimigo : MonoBehaviour
         nav.destination = waypoints[waypointIndex].position;
         
     }
+    
   public  void Die()
     {
+        
         isPatroling = false;
         isChasing = false;
         anim.SetBool("dead", true);
         nav.Stop();
+       
+        
+        
     }
 
     void idle()

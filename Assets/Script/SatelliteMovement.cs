@@ -103,7 +103,7 @@ public class SatelliteMovement : MonoBehaviour
                         SatelliteEnergyBarProgress = SatelliteEnergyBar.width;
                     }
                 }
-                Debug.Log(SatelliteEnergyBarProgress);
+              //  Debug.Log(SatelliteEnergyBarProgress);
             }
 
             if (SatelliteCamera.fieldOfView <= 20f)
@@ -199,7 +199,6 @@ public class SatelliteMovement : MonoBehaviour
         transform.Translate(h, 0, v, Space.World);
         Vector3 temp = transform.localPosition;
         float actualDistance = Vector3.Distance(transform.position, tempStarterPos);
-        print(actualDistance);
         speedratio = 0.5f;// *((initialDistanceFromPlayer / actualDistance) / 5);
         if (actualDistance > 50.0f)
         {
