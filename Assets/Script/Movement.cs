@@ -339,7 +339,7 @@ public class Movement : MonoBehaviour {
         //Crouch
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            controller.height = 7;
+           // controller.height = 7;
             //controller.center = crouchCapsuleCenter;
             cameraControl("Crouch");
             anim.SetBool("isCrouching", true);
@@ -462,7 +462,7 @@ public class Movement : MonoBehaviour {
             TopView.enabled = true;
 
             //capsule player
-			controller.height = 7;
+		//	controller.height = 7;
             //controller.center = crouchCapsuleCenter;
 			anim.SetBool("isCrouching", true);
 			anim.SetBool("isCrouch", true);

@@ -46,7 +46,7 @@ public class ShaderController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKey(ActivationKey) && !Input.GetKey(CancelKey))
+        if (Input.GetKeyDown(ActivationKey) && !Input.GetKey(CancelKey))
         {
             for (int i = 0; i < tagList.Count; i++)
             {
