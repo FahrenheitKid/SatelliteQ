@@ -63,6 +63,7 @@
      <Compile Include="Assets\Script\ShaderController.cs" />
      <Compile Include="Assets\Script\laserScript.cs" />
      <Compile Include="Assets\Weapon.cs" />
+     <Compile Include="Assets\detectorLOS.cs" />
      <Compile Include="Assets\enemyLOS.cs" />
      <Compile Include="Assets\glitchControl.cs" />
      <None Include="Assets\Pause Menu Assets\Fonts\open-sans\Apache License.txt" />
