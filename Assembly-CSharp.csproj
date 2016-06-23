@@ -59,6 +59,7 @@
      <Compile Include="Assets\Script\DoorBehaviour.cs" />
      <Compile Include="Assets\Script\MenuScript.cs" />
      <Compile Include="Assets\Script\Movement.cs" />
+     <Compile Include="Assets\Script\PortalScript.cs" />
      <Compile Include="Assets\Script\SatelliteMovement.cs" />
      <Compile Include="Assets\Script\ShaderController.cs" />
      <Compile Include="Assets\Script\laserScript.cs" />

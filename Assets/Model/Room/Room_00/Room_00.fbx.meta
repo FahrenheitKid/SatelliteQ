@@ -316,6 +316,9 @@ ModelImporter:
     100616: Glass_Control_Room_4
     100618: Glass_Control_Room_5
     100620: Glass_Control_Room_6
+    100622: polySurface4
+    100624: polySurface5
+    100626: pPipe1
     400000: BBox_1
     400002: BBox_10
     400004: BBox_11
@@ -627,6 +630,9 @@ ModelImporter:
     400616: Glass_Control_Room_4
     400618: Glass_Control_Room_5
     400620: Glass_Control_Room_6
+    400622: polySurface4
+    400624: polySurface5
+    400626: pPipe1
     2300000: BBox_1
     2300002: BBox_10
     2300004: BBox_11
@@ -924,6 +930,9 @@ ModelImporter:
     2300588: Glass_Control_Room_4
     2300590: Glass_Control_Room_5
     2300592: Glass_Control_Room_6
+    2300594: polySurface4
+    2300596: polySurface5
+    2300598: pPipe1
     3300000: BBox_1
     3300002: BBox_10
     3300004: BBox_11
@@ -1221,6 +1230,9 @@ ModelImporter:
     3300588: Glass_Control_Room_4
     3300590: Glass_Control_Room_5
     3300592: Glass_Control_Room_6
+    3300594: polySurface4
+    3300596: polySurface5
+    3300598: pPipe1
     4300000: Ladder_1
     4300002: Ladder_2
     4300004: Box_1
@@ -1518,6 +1530,9 @@ ModelImporter:
     4300588: Glass_Control_Room_6
     4300590: Glass_Control_Room_3
     4300592: Glass_Control_Room_4
+    4300594: pPipe1
+    4300596: polySurface5
+    4300598: polySurface4
     9500000: //RootNode
   materials:
     importMaterials: 1
