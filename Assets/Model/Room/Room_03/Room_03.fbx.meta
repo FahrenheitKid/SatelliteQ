@@ -158,6 +158,8 @@ ModelImporter:
     100300: polySurface70
     100302: polySurface71
     100304: polySurface72
+    100306: polySurface88
+    100308: polySurface89
     400000: pCube1
     400002: pCube10
     400004: pCube2
@@ -311,6 +313,8 @@ ModelImporter:
     400300: polySurface70
     400302: polySurface71
     400304: polySurface72
+    400306: polySurface88
+    400308: polySurface89
     2300000: pCube1
     2300002: pCube10
     2300004: pCube2
@@ -431,6 +435,8 @@ ModelImporter:
     2300234: polySurface70
     2300236: polySurface71
     2300238: polySurface72
+    2300240: polySurface88
+    2300242: polySurface89
     3300000: pCube1
     3300002: pCube10
     3300004: pCube2
@@ -551,6 +557,8 @@ ModelImporter:
     3300234: polySurface70
     3300236: polySurface71
     3300238: polySurface72
+    3300240: polySurface88
+    3300242: polySurface89
     4300000: pCube1
     4300002: pCube2
     4300004: pCube3
@@ -671,6 +679,8 @@ ModelImporter:
     4300234: polySurface71
     4300236: polySurface72
     4300238: polySurface47
+    4300240: polySurface88
+    4300242: polySurface89
     9500000: //RootNode
   materials:
     importMaterials: 1

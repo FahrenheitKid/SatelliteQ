@@ -194,18 +194,6 @@ public class Movement : MonoBehaviour {
         {
             onButton = true;
             targetDoorButton = obj;
-            
-
-        }
-        if(obj.tag == "Portal")
-        {
-
-            if(SceneManager.GetActiveScene().name == "Room_01")
-                SceneManager.LoadScene("Room_03");
-            else if(SceneManager.GetActiveScene().name == "Room_03")
-            {
-                SceneManager.LoadScene("Room_01");
-            }
         }
     }
 
