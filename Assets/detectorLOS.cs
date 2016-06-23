@@ -20,7 +20,8 @@ public class detectorLOS : MonoBehaviour
     SphereCollider col;
     GameObject player;
     Light detectionLight;
-    float LOSincreaseTimer = 0;
+    GameObject alarmLights;
+   public float LOSincreaseTimer = 0;
 
     // Use this for initialization
     void Start()
@@ -33,8 +34,9 @@ public class detectorLOS : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         gameControl = GameObject.FindGameObjectWithTag("GameController").GetComponent<Controller>();
-
+        
         detectionLight = GetComponent<Light>();
+        alarmLights = transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -51,12 +53,13 @@ public class detectorLOS : MonoBehaviour
         DrawFOV();
         if (playerSighted == true)
         {
-
-
+            alarmLights.SetActive(true);
+            alarmLights.transform.Rotate(0,Time.deltaTime*360,0);
         }
         else
         {
             lastSight = gameControl.LastGlobalPlayerPos;
+            alarmLights.SetActive(false);
         }
         LOSincreaseTimer += Time.deltaTime;
         if (LOSincreaseTimer < 5.0f)
@@ -69,12 +72,17 @@ public class detectorLOS : MonoBehaviour
         }
         else
         {
-            col.radius -= Time.deltaTime *25;
-            detectionLight.range -= Time.deltaTime * 25;
-            if (col.radius < 5.0f)
+
+
+            if (col.radius < 5.0f && LOSincreaseTimer > 10.0f)
             {
 
                 LOSincreaseTimer = 0;
+            }
+            if (col.radius > 5.0f)
+            {
+                col.radius -= Time.deltaTime * 25;
+                detectionLight.range -= Time.deltaTime * 25;
             }
         }
 
