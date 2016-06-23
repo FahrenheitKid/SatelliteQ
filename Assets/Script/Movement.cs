@@ -40,6 +40,8 @@ public class Movement : MonoBehaviour {
     private Collider targetDoor;
     private Collider targetDoorButton;
 
+    private bool onWatch = false;
+
     float cameraRotatedX = 0;
 
     SatelliteMovement SatMov;
@@ -195,6 +197,11 @@ public class Movement : MonoBehaviour {
             onButton = true;
             targetDoorButton = obj;
         }
+
+        if(obj.tag == "Watch")
+        {
+            onWatch = true;
+        }
     }
 
     void OnTriggerExit(Collider obj)
@@ -213,8 +220,11 @@ public class Movement : MonoBehaviour {
         if (obj.tag == "DoorButton")
         {
             onButton = false;
-            
+        }
 
+        if (obj.tag == "Watch")
+        {
+            onWatch = false;
         }
     }
 
@@ -231,6 +241,11 @@ public class Movement : MonoBehaviour {
             GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F - Open Door");
         }
 
+        if(onWatch)
+        {
+            GUI.skin.font = razerFont;
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F - Get Watch");
+        }
 
         if (onButton)
         {
@@ -275,6 +290,7 @@ public class Movement : MonoBehaviour {
             }
         }
         //------------------------------------------------------------
+        //Open Door
         if (onDoor && Input.GetKeyDown(KeyCode.F))
         {
             if (targetDoor.tag == "Door")
@@ -294,7 +310,6 @@ public class Movement : MonoBehaviour {
             }
 
         }
-
         if (onButton && Input.GetKeyDown(KeyCode.F))
         {
             DoorBehaviour script;
@@ -307,7 +322,16 @@ public class Movement : MonoBehaviour {
 
             script.pressButton();
         }
-
+        //Get Watch
+        if(onWatch && Input.GetKeyDown(KeyCode.F))
+        {
+            GameObject watch = GameObject.FindGameObjectWithTag("Watch");
+            watch.SetActive(false);
+            onWatch = false;
+            GameObject cont = GameObject.Find("GameController");
+            Controller script = cont.GetComponent<Controller>();
+            script.pickSatellite();
+        }
 
         //Running Jump
         if (controller.isGrounded)

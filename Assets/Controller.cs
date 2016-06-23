@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
-public class Controller : MonoBehaviour {
+public class Controller : MonoBehaviour
+{
     int hp = 3;
     bool dead = false;
     public Vector3 LastGlobalPlayerPos;
     public Vector3 ResetPosition;
     // Use this for initialization
-
+    static bool hasSatellite = false;
+    public GameObject SatelliteWatch;
     AudioSource music;
     AudioClip music_clip;
 	void Start () 
@@ -19,7 +21,7 @@ public class Controller : MonoBehaviour {
         float vol = 0.45f;
         music = AddAudio(music_clip, true, true, vol);
         music.Play();
-
+        SatelliteWatch.SetActive(hasSatellite);
     }
 	
 	// Update is called once per frame
@@ -35,6 +37,11 @@ public class Controller : MonoBehaviour {
         hp -= damageTaken;
     }
 
+    public void pickSatellite()
+    {
+        hasSatellite = true;
+        SatelliteWatch.SetActive(hasSatellite);
+    }
 
     public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float vol)
     {
