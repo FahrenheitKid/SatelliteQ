@@ -36,15 +36,15 @@ public class enemyLOS : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        //if (Input.GetKey(KeyCode.Q))
-        //{
-        //    DrawFOV();
-        //}
-        //else
-        //{
-        //    viewMesh.Clear();
-        //}
-        DrawFOV();
+        if (Input.GetKey(KeyCode.Q))
+        {
+            DrawFOV();
+        }
+        else
+        {
+            viewMesh.Clear();
+        }
+        //DrawFOV();
         if (playerSighted == true)
         {
 
