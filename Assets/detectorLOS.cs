@@ -42,15 +42,14 @@ public class detectorLOS : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKey(KeyCode.Q))
-        //{
-        //    DrawFOV();
-        //}
-        //else
-        //{
-        //    viewMesh.Clear();
-        //}
-        DrawFOV();
+        if (col.radius > 5.0f)
+        {
+            DrawFOV();
+        }
+        else
+        {
+            viewMesh.Clear();
+        }
         if (playerSighted == true)
         {
             alarmLights.SetActive(true);
@@ -93,7 +92,7 @@ public class detectorLOS : MonoBehaviour
     {
         
         //Se objeto que entrou no campo de atuação do inimigo for o Player
-        if (other.gameObject == player)
+        if (other.gameObject == player && col.radius > 5.0f)
         {
             playerSighted = false;
             //Direção do inimigo para jogador

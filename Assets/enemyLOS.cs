@@ -73,10 +73,10 @@ public class enemyLOS : MonoBehaviour
             {
                 RaycastHit hit;
                 Ray ray = new Ray();
-                ray.origin = transform.position + transform.up;
+                ray.origin = transform.position + transform.up*2;
                 ray.direction = direction.normalized;
-                Debug.DrawRay(transform.position + transform.up * 2, direction.normalized*col.radius, Color.green);
-                enemyShootAngle = Vector3.Angle(transform.position + transform.up * 2, direction.normalized * col.radius);
+                Debug.DrawRay(transform.position + transform.up * 3, direction.normalized*col.radius, Color.green);
+                enemyShootAngle = Vector3.Angle(transform.position + transform.up * 10, direction.normalized * col.radius);
                 //Se o raycast acertar algo
                 if (Physics.Raycast(ray,out hit))
                 {
@@ -87,7 +87,7 @@ public class enemyLOS : MonoBehaviour
                         //Atualiza a ultima posição que o jogador foi visto
                         lastSight = player.transform.position;
                         gameControl.LastGlobalPlayerPos = player.transform.position;
-                        Debug.DrawRay(transform.position + transform.up * 2, direction.normalized * col.radius, Color.red);
+                        Debug.DrawRay(transform.position + transform.up * 10, direction.normalized * col.radius, Color.red);
                     }
                 }
             }

@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
     Light shotLight;
     Controller hp;
     AudioSource sound;
-
+    int damage = 1;
     public GameObject bulletPrefab;
 
 	// Use this for initialization
@@ -42,7 +42,7 @@ public class Weapon : MonoBehaviour
         {
             shooting = true;
             SFX();
-          //  hp.takeDamage(damage); // Comentado só para testes, remover depois.
+            hp.takeDamage(damage); 
         }
     }
    void SFX()

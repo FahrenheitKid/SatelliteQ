@@ -32,6 +32,8 @@ public class Inimigo : MonoBehaviour
 
     float disintegrationAmount = 0;
     Material[] materials;
+
+    public bool behaviourLineRoute = false;
     // Use this for initialization
     void Start()
     {
@@ -59,6 +61,8 @@ public class Inimigo : MonoBehaviour
         initialLOS = LOS.fovAngle;
 
         materials = GetComponentInChildren<SkinnedMeshRenderer>().materials;
+
+       
     }
 
     // Update is called once per frame
@@ -201,24 +205,31 @@ public class Inimigo : MonoBehaviour
             if (waypointIndex == waypoints.Length)
             {
                 waypointIndex = 0;
+                if (behaviourLineRoute)
+                {
+                    System.Array.Reverse(waypoints);
+                }
+
             }
             //  Debug.Log(waypointIndex);
             nav.destination = waypoints[waypointIndex].position;
         }
         if (waypoints.Length <= 1)
         {
-            print("nav Pqno");
+           
+            nav.destination = waypoints[waypointIndex].position;
+
             if (nav.remainingDistance > nav.stoppingDistance)
             {
-                print("going Home");
+             
                 nav.destination = waypoints[waypointIndex].position;
             }
             else
             {
-                
-                print("cheguei");
+           
                 anim.SetBool("idle", true);
                 nav.Stop();
+                
             }
         }
         
