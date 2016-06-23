@@ -107,13 +107,13 @@ public class Inimigo : MonoBehaviour
             DestroyObject(this.gameObject);
         }
         //Enquanto a animação não acaba desintegra o inimigo
-        else
+        if (animationCurve > 0.01f)
         {
             for (int i = 0; i < materials.Length; i++)
             {
-                print(materials[i].name);
+           
                 materials[i].SetFloat("_SliceAmount", animationCurve*10);
-                print(i);
+              
             }
         }
 
@@ -192,16 +192,35 @@ public class Inimigo : MonoBehaviour
         anim.SetBool("idle", false);
         anim.SetBool("isShooting", false);
         anim.SetBool("isRunning", false);
-        if (nav.remainingDistance < nav.stoppingDistance)
+        if (waypoints.Length > 1)
         {
-            waypointIndex++;
+            if (nav.remainingDistance < nav.stoppingDistance)
+            {
+                waypointIndex++;
+            }
+            if (waypointIndex == waypoints.Length)
+            {
+                waypointIndex = 0;
+            }
+            //  Debug.Log(waypointIndex);
+            nav.destination = waypoints[waypointIndex].position;
         }
-        if (waypointIndex == waypoints.Length)
+        if (waypoints.Length <= 1)
         {
-            waypointIndex = 0;
+            print("nav Pqno");
+            if (nav.remainingDistance > nav.stoppingDistance)
+            {
+                print("going Home");
+                nav.destination = waypoints[waypointIndex].position;
+            }
+            else
+            {
+                
+                print("cheguei");
+                anim.SetBool("idle", true);
+                nav.Stop();
+            }
         }
-      //  Debug.Log(waypointIndex);
-        nav.destination = waypoints[waypointIndex].position;
         
     }
     
