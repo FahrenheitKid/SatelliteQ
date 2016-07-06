@@ -5,6 +5,7 @@ public class MenuScript : MonoBehaviour
 {
     opening op;
     public GUISkin skin;
+    public GUITexture logo;
 	// Use this for initialization
 	void Start () {
         op = GameObject.Find("op").GetComponent<opening>();
