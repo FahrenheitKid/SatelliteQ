@@ -136,7 +136,7 @@ public class Movement : MonoBehaviour
         cameraRotatedX = Mathf.Clamp(cameraRotatedX, -60, 60);
         cameraRotation.x = cameraRotatedX;
         FirstPerson.transform.localEulerAngles = cameraRotation;
-      //  TopView.transform.Rotate(0, rotation.y, 0, Space.World);
+        //TopView.transform.Rotate(0, rotation.y, 0, Space.World);
         //quando aperta esc, mostra o cursor e destrava
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -321,19 +321,19 @@ public class Movement : MonoBehaviour
         }
 
         //Running Jump
-        if (controller.isGrounded)
-        {
-            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Space))
-            {
-                anim.SetTrigger("isRunningJump");
-                translation.y = 1000;
-                //Debug.Log("Jumped");
-            }
-        }
-        else if (!controller.isGrounded)
-        {
-            //Debug.Log("Not on Ground");
-        }
+        //if (controller.isGrounded)
+        //{
+        //    if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Space))
+        //    {
+        //        anim.SetTrigger("isRunningJump");
+        //        translation.y = 1000;
+        //        //Debug.Log("Jumped");
+        //    }
+        //}
+        //else if (!controller.isGrounded)
+        //{
+        //    //Debug.Log("Not on Ground");
+        //}
 
         //Crouch
         if (Input.GetKeyDown(KeyCode.LeftControl))
