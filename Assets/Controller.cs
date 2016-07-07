@@ -12,6 +12,9 @@ public class Controller : MonoBehaviour
     public GameObject SatelliteWatch;
     AudioSource music;
     AudioClip music_clip;
+
+    public GameObject tutorialPrefab;
+
 	void Start () 
     {
         ResetPosition.Set(1000, 1000, 1000); //Posição contada como "neutra"
@@ -41,6 +44,17 @@ public class Controller : MonoBehaviour
     {
         hasSatellite = true;
         SatelliteWatch.SetActive(hasSatellite);
+
+        GameObject tutorial = (GameObject)Instantiate(tutorialPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        TutorialScript ts = tutorial.GetComponent<TutorialScript>();
+        ts.tutorialText = "Nice, Now you have access to the satellite! Hold Q to activate the satellite vision. With the satellite you can see enemies through walls, their field of view and kill them. With the mouse you have control over the satellite, Left Button you can charge the laser and shoot to kill enemies (Note that there's a limit of charges you can use per level).";
+        ts.boxTimer = 30;
+        ts.showText = true;
+    }
+
+    public bool satellitePicked()
+    {
+        return hasSatellite;
     }
 
     public AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float vol)
@@ -54,6 +68,5 @@ public class Controller : MonoBehaviour
         newAudio.volume = vol;
 
         return newAudio;
-
     }
 }

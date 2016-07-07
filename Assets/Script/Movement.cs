@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
-public class Movement : MonoBehaviour {
+public class Movement : MonoBehaviour
+{
+    public GUISkin skin;
 
     Animator anim;
     CharacterController controller;
@@ -9,6 +11,7 @@ public class Movement : MonoBehaviour {
     public Camera TopView;
 	CursorLockMode wantedMode; // variavel pra trancar e/ou esconder o cursor
 
+    public bool hasSatellite;
 	public bool satelliteMode = false;
     public float speedWalk = 20.0f;
     public float speedWalkBackwards = 15.0f;
@@ -34,7 +37,6 @@ public class Movement : MonoBehaviour {
     //private Vector3 capsuleCenter = new Vector3(0, 6.25f, 0);
     private bool onDuct = false;
 
-    public Font razerFont;
     private bool onDoor = false;
     private bool onButton = false;
     private Collider targetDoor;
@@ -83,13 +85,17 @@ public class Movement : MonoBehaviour {
         controller = GetComponent<CharacterController>();
         SatMov = GameObject.Find("TopViewCamera").GetComponent<SatelliteMovement>();
         FirstPerson.enabled = true;
-     //   FirstPerson.transform.localPosition = idleCameraPos;
+        //  FirstPerson.transform.localPosition = idleCameraPos;
         TopView.enabled = false;
 
-		// esconde e tranca inicialmente
+		//esconde e tranca inicialmente
 		Cursor.visible = false;
 		wantedMode = CursorLockMode.Locked;
 		Cursor.lockState = wantedMode;
+
+        GameObject cont = GameObject.Find("GameController");
+        Controller contScript = cont.GetComponent<Controller>();
+        hasSatellite = contScript.satellitePicked();
     }
 
     // Update is called once per frame
@@ -116,6 +122,7 @@ public class Movement : MonoBehaviour {
         translation *= speed;
 
         AnimationControl();
+        if(hasSatellite)
         SwitchToSatellite();
         translation.y -= gravity;
 
@@ -138,8 +145,8 @@ public class Movement : MonoBehaviour {
             else
             {
                 Cursor.visible = false;
-		wantedMode = CursorLockMode.Locked;
-		Cursor.lockState = wantedMode;
+		        wantedMode = CursorLockMode.Locked;
+		        Cursor.lockState = wantedMode;
             }
 
             if (isPaused)
@@ -154,7 +161,8 @@ public class Movement : MonoBehaviour {
                 */
 
         }
-				Cursor.visible = (CursorLockMode.Locked != wantedMode);
+
+		Cursor.visible = (CursorLockMode.Locked != wantedMode);
 
         if(isPaused)
         {
@@ -230,47 +238,25 @@ public class Movement : MonoBehaviour {
 
     void OnGUI()
     {
+        GUI.skin = skin;
         if (onDoor && targetDoor.transform.localEulerAngles.y > 0)
         {
-            GUI.skin.font = razerFont;
-            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F - Close Door");
+            GUI.Box(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F - Close Door");
         }
         else if(onDoor)
         {
-            GUI.skin.font = razerFont;
-            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F - Open Door");
+            GUI.Box(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F - Open Door");
         }
 
         if(onWatch)
         {
-            GUI.skin.font = razerFont;
-            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F - Get Watch");
+            GUI.Box(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F - Get Watch");
         }
 
         if (onButton)
         {
-            GUI.skin.font = razerFont;
-            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F to Press Button");
+            GUI.Box(new Rect(Screen.width / 2 - 100, Screen.height - 100, 200, 30), "Press F to Press Button");
         }
-    }
-
-    void cameraControl(string key)
-    {
-        //switch (key)
-        //{
-        //    case "Crouch":
-        //        FirstPerson.transform.localPosition = crouchCameraPos;
-        //        break;
-        //    case "Walk":
-        //        FirstPerson.transform.localPosition = walkCameraPos;
-        //        break;
-        //    case "Run":
-        //        FirstPerson.transform.localPosition = runCameraPos;
-        //        break;
-        //    case "Idle":
-        //        FirstPerson.transform.localPosition = idleCameraPos;
-        //        break;
-        //}
     }
 
     //Set Animation Flags
@@ -326,11 +312,12 @@ public class Movement : MonoBehaviour {
         if(onWatch && Input.GetKeyDown(KeyCode.F))
         {
             GameObject watch = GameObject.FindGameObjectWithTag("Watch");
-            watch.SetActive(false);
+            Destroy(watch);
             onWatch = false;
             GameObject cont = GameObject.Find("GameController");
             Controller script = cont.GetComponent<Controller>();
             script.pickSatellite();
+            hasSatellite = true;
         }
 
         //Running Jump
@@ -343,7 +330,7 @@ public class Movement : MonoBehaviour {
                 //Debug.Log("Jumped");
             }
         }
-        else if(!controller.isGrounded)
+        else if (!controller.isGrounded)
         {
             //Debug.Log("Not on Ground");
         }
@@ -353,7 +340,6 @@ public class Movement : MonoBehaviour {
         {
            // controller.height = 7;
             //controller.center = crouchCapsuleCenter;
-            cameraControl("Crouch");
             anim.SetBool("isCrouching", true);
             anim.SetBool("isCrouch", true);
         }
@@ -361,7 +347,6 @@ public class Movement : MonoBehaviour {
         {
             controller.height = 12.5f;
             //controller.center = capsuleCenter;
-            cameraControl("Idle");
             anim.SetBool("isCrouchWalking", false);
             anim.SetBool("isCrouching", false);
             anim.SetBool("isCrouch", false);
@@ -371,7 +356,6 @@ public class Movement : MonoBehaviour {
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftControl))
         {
             anim.SetBool("isCrouchWalking", true);
-            cameraControl("Crouch");
         }
         else if (Input.GetKey(KeyCode.W) && Input.GetKeyUp(KeyCode.LeftControl))
         {
@@ -381,7 +365,6 @@ public class Movement : MonoBehaviour {
         }
         else if (Input.GetKeyUp(KeyCode.W) && Input.GetKey(KeyCode.LeftControl))
         {
-            cameraControl("Crouch");
             anim.SetBool("isCrouchWalking", false);
             anim.SetBool("isCrouching", false);
             anim.SetBool("isCrouch", true);
@@ -397,8 +380,7 @@ public class Movement : MonoBehaviour {
                 footsteps1_pressed = false;
 
             }
-          
-            cameraControl("Walk");
+
             anim.SetBool("isWalking", true);
             speed = speedWalk;
         }
@@ -423,7 +405,6 @@ public class Movement : MonoBehaviour {
                 footsteps_run1_pressed = false;
 
              }
-            cameraControl("Run");
             anim.SetBool("isRunning", true);
             speed = speedRun;
         }
@@ -450,11 +431,6 @@ public class Movement : MonoBehaviour {
 
         return newAudio;
 
-    }
-
-    void CharacterJump()
-    {
-        //translation
     }
 
     //Switch satelliteCamera to Satellite

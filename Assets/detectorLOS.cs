@@ -112,7 +112,7 @@ public class detectorLOS : MonoBehaviour
                 if (Physics.Raycast(ray, out hit))
                 {
                     //E se esse algo for o jogador
-                    if (hit.collider.gameObject == player)
+                    if (hit.collider.tag == "Player")
                     {
                         playerSighted = true;
                         //Atualiza a ultima posição que o jogador foi visto

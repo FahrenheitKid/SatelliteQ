@@ -157,6 +157,17 @@ public class Inimigo : MonoBehaviour
 
 
     }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.tag == "Door")
+        {
+            Debug.Log("Enemy Open Door");
+            DoorBehaviour doorScript = col.GetComponent<DoorBehaviour>();
+            doorScript.interactDoor();
+        }
+    }
+
     void Shoot()
     {
         LOS.fovAngle = initialLOS;
@@ -169,6 +180,7 @@ public class Inimigo : MonoBehaviour
         transform.LookAt(LOS.lastSight);
         gun.Shoot();
     }
+
     void Chase(Vector3 Destination)
     {
         LOS.fovAngle = initialLOS;
@@ -186,6 +198,7 @@ public class Inimigo : MonoBehaviour
             gameControl.LastGlobalPlayerPos = gameControl.ResetPosition;
         }
     }
+
     void Patrol()
     {
         LOS.fovAngle = initialLOS;
@@ -235,7 +248,7 @@ public class Inimigo : MonoBehaviour
         
     }
     
-  public  void Die()
+    public  void Die()
     {
         
         isPatroling = false;

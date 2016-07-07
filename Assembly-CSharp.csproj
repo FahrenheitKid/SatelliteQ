@@ -62,6 +62,7 @@
      <Compile Include="Assets\Script\PortalScript.cs" />
      <Compile Include="Assets\Script\SatelliteMovement.cs" />
      <Compile Include="Assets\Script\ShaderController.cs" />
+     <Compile Include="Assets\Script\TutorialScript.cs" />
      <Compile Include="Assets\Script\laserScript.cs" />
      <Compile Include="Assets\Weapon.cs" />
      <Compile Include="Assets\detectorLOS.cs" />
